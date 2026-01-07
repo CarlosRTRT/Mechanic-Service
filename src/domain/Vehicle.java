@@ -8,13 +8,17 @@ public class Vehicle {
 	private String fuelType; //(gasolina, diésel, eléctrico, híbrido)
 	private String owner;
 	
-	public Vehicle(String licensePlate, String marca, String model, int year, String fuelType, String owner) {
+	public Vehicle(String licensePlate, String brand, String model, int year, String fuelType, String owner) {
 		this.licensePlate = licensePlate;
-		this.brand = marca;
+		this.brand = brand;
 		this.model = model;
 		this.year = year;
 		this.fuelType = fuelType;
 		this.owner = owner;
+	}
+
+	public Vehicle() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getlicensePlate() {
@@ -25,12 +29,12 @@ public class Vehicle {
 		this.licensePlate = licensePlate;
 	}
 
-	public String getMarca() {
+	public String getBrand() {
 		return brand;
 	}
 
-	public void setMarca(String marca) {
-		this.brand = marca;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public String getModel() {
@@ -67,7 +71,7 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return "Vehicle [licensePlate=" + licensePlate + ", marca=" + brand + ", model=" + model + ", year=" + year + ", fuelType="
+		return "Vehicle [licensePlate=" + licensePlate + ", brand=" + brand + ", model=" + model + ", year=" + year + ", fuelType="
 				+ fuelType + ", owner=" + owner + "]";
 	}
 	
