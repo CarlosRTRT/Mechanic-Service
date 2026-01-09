@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import domain.Vehicle;
