@@ -13,12 +13,12 @@
       <Label layoutX="36.0" layoutY="162.0" text="NUMERO DE TELEFONO" />
       <Label layoutX="212.0" layoutY="162.0" text="CORREO ELECTRONICO" />
       <Label layoutX="36.0" layoutY="211.0" text="DIRECCION" />
-      <Button fx:id="btnAddClient" layoutX="50.0" layoutY="275.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="149.0" text="Agregar Cliente" textAlignment="CENTER" />
+      <Button fx:id="btnAddClient" layoutX="36.0" layoutY="275.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="149.0" text="Agregar Cliente" textAlignment="CENTER" />
       <TextField fx:id="tfFullName" layoutX="214.0" layoutY="127.0" promptText="Ingrese el Nombre Completo" />
       <TextField fx:id="tfPhoneNumber" layoutX="36.0" layoutY="179.0" promptText="Ingrese el Numero de Telefono Ej. 12345678" />
       <TextField fx:id="tfEmail" layoutX="214.0" layoutY="179.0" promptText="Ingese el Correo Electronico Ej. juanito12@gmail.com" />
       <TextField fx:id="tfDirection" layoutX="36.0" layoutY="229.0" promptText="Ingrese la Direccion " />
-      <Button fx:id="btnReturn" layoutX="200.0" layoutY="275.0" mnemonicParsing="false" onAction="#returnPrincipalMenu" prefHeight="25.0" prefWidth="149.0" text="Cancelar" textAlignment="CENTER" />
+      <Button fx:id="btnReturn" layoutX="214.0" layoutY="275.0" mnemonicParsing="false" onAction="#returnPrincipalMenu" prefHeight="25.0" prefWidth="149.0" text="Cancelar" textAlignment="CENTER" />
       <Label layoutX="212.0" layoutY="211.0" text="CANTIDAD DE VEHICULOS" />
       <TextField fx:id="tfNumOfVehicles" layoutX="214.0" layoutY="229.0" promptText="Ingrese la Cantidad de Vehiculos a Registrar " />
       <Label layoutX="137.0" layoutY="62.0" text="REGISTRO DE CLIENTES" underline="true" />
