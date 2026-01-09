@@ -7,7 +7,7 @@ import business.LogicClient;
 import domain.Client;
 
 public class ClientData {
-	private static final String filePath = "CientData.json";
+	private static String filePath = "data.json";
 	
 	 private static JsonUtils<Client> jsonUtils = new JsonUtils<Client>(filePath);
 	 
@@ -24,15 +24,50 @@ public class ClientData {
 		 try {
 			jsonUtils.saveElement(client);
 		} catch (Exception e) {
-			System.out.println("Error al guardar en Cliente.json");
+			System.out.println("Error al guardar en data.json");
 		}
+	 }
+	 
+	 public static boolean editClient(Client clientUpdated) {
+		 
+		 
+		 try {
+			 ArrayList<Client> clients = getList();
+				 
+			 int index = 0;
+			 boolean found = false;
+				 
+			 for(Client temp : clients) {
+				 if(temp.getId().equals(clientUpdated.getId())) {
+					 clients.set(index, clientUpdated);
+					 found = true;
+					 break;
+				 }
+				 index++;
+			 }
+			 
+			if(!found) {
+	            System.out.println("Cliente no encontrado");
+	            return false;
+			}		
+			
+			jsonUtils.saveAll(clients);
+			System.out.println("Cliente Modificado");
+			return true;
+		} catch (Exception e) {
+			e.getStackTrace();
+			System.out.println("Error al modificar el cliente");
+			return false;
+		}
+		 
+		 
 	 }
 	 
 	 public static ArrayList<Client> getList(){
 		 try {
 			return (ArrayList<Client>) jsonUtils.getAll(Client.class);
 		 } catch (IOException e) {
-			 System.out.println("Error al recuperar la lista de clientes");
+			 System.out.println("Error al recuperar la lista de datos");
 			 return new ArrayList<Client>();
 		 }
 	 }

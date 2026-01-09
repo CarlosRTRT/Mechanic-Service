@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Orders {
 	private int orderNumber;// UNICO Y AUTOMATICO
 	private String creationDate;
@@ -7,7 +10,7 @@ public class Orders {
 	private Vehicle vehicle;
 	private Client client;
 	private Mechanic mechanic;
-	private Services services;
+	private List<Services> services;
 	private String observations;
 	private int totalPrice;
 	
@@ -20,7 +23,7 @@ public class Orders {
 		this.vehicle = vehicle;
 		this.client = client;
 		this.mechanic = mechanic;
-		this.services = services;
+		this.services = new ArrayList<>();
 		this.observations = observations;
 		this.totalPrice = totalPrice;
 	}
@@ -73,11 +76,11 @@ public class Orders {
 		this.mechanic = mechanic;
 	}
 
-	public Services getServices() {
+	public List<Services> getServices() {
 		return services;
 	}
 
-	public void setServices(Services services) {
+	public void setServices(List<Services> services) {
 		this.services = services;
 	}
 
@@ -95,6 +98,10 @@ public class Orders {
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	
+	public void addService(Services service) {
+		this.services.add(service);
 	}
 
 	@Override

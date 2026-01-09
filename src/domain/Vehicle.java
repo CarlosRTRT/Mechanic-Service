@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vehicle {
 	private String licensePlate; // UNICO
 	private String brand;
@@ -7,6 +10,7 @@ public class Vehicle {
 	private int year;
 	private String fuelType; //(gasolina, diésel, eléctrico, híbrido)
 	private String owner;
+	private List<Orders> order;
 	
 	public Vehicle(String licensePlate, String brand, String model, int year, String fuelType, String owner) {
 		this.licensePlate = licensePlate;
@@ -15,6 +19,7 @@ public class Vehicle {
 		this.year = year;
 		this.fuelType = fuelType;
 		this.owner = owner;
+		this.order = new ArrayList<>();
 	}
 
 	public Vehicle() {
@@ -73,6 +78,14 @@ public class Vehicle {
 	public String toString() {
 		return "Vehicle [licensePlate=" + licensePlate + ", brand=" + brand + ", model=" + model + ", year=" + year + ", fuelType="
 				+ fuelType + ", owner=" + owner + "]";
+	}
+
+	public List<Orders> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Orders> order) {
+		this.order = order;
 	}
 	
 }

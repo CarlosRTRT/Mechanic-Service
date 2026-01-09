@@ -15,7 +15,7 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.control.ComboBox;
 
-public class GUIVehicleRegistrationController implements Initializable{
+public class GUIVehicleRegistrationController implements Initializable {
 	@FXML
 	private TextField tfLicensePlate;
 	@FXML

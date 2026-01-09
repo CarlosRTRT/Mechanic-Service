@@ -36,4 +36,12 @@ public class JsonUtils<T> {
 		
 		JsonUtils.mapper.writeValue(new File(this.filePath), temp);
 	}
+	
+	public void saveAll(List<T> clients) {
+		try {
+			JsonUtils.mapper.writeValue(new File(this.filePath), clients);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
 }

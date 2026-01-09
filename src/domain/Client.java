@@ -1,11 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client {
 	private String id; // ES UNICO
 	private String fullName;
 	private int phoneNumber;
 	private String email;
 	private String direction;
+	private List<Vehicle> vehicles;
 	
 	public Client(String id, String fullName, int phoneNumber, String email, String direction) {
 		this.id = id;
@@ -13,6 +17,7 @@ public class Client {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.direction = direction;
+		this.vehicles = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -59,6 +64,22 @@ public class Client {
 	public String toString() {
 		return "Client [id=" + id + ", fullName=" + fullName + ", phoneNumber=" + phoneNumber + ", email=" + email
 				+ ", direction=" + direction + "]";
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+	
+	public void addVehicle(Vehicle vehicle) {
+		this.vehicles.add(vehicle);
+	}
+	
+	public void deleteVehicle(Vehicle vehicle) {
+		this.vehicles.remove(vehicle);
 	}
 	
 	
