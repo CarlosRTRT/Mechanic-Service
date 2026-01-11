@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="business.GUIAdminVehicleController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIAdminVehicleController">
    <children>
       <Label layoutX="43.0" layoutY="65.0" text="PLACA" />
       <TextField fx:id="tfLicensePlate" layoutX="43.0" layoutY="82.0" prefHeight="25.0" prefWidth="162.0" />
@@ -24,8 +24,9 @@
       <TableView fx:id="tvVehicles" layoutX="22.0" layoutY="188.0" prefHeight="200.0" prefWidth="555.0" />
       <Label layoutX="22.0" layoutY="171.0" text="VEHICULOS REGISTRADOS:" />
       <Label layoutX="199.0" layoutY="27.0" text="ADMINISTRACION DE VEHICULOS" underline="true" />
-      <Button fx:id="btnEdit" layoutX="118.0" layoutY="397.0" mnemonicParsing="false" onAction="#editVehicle" text="Editar Vehiculo" />
-      <Button fx:id="btnDelete" layoutX="223.0" layoutY="397.0" mnemonicParsing="false" onAction="#deleteVehicle" text="Eliminar Vehiculo" />
-      <Button fx:id="btnReturn" layoutX="337.0" layoutY="397.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menu Principal" />
+      <Button fx:id="btnEdit" layoutX="22.0" layoutY="397.0" mnemonicParsing="false" onAction="#editVehicle" text="Editar Vehiculo" />
+      <Button fx:id="btnDelete" layoutX="145.0" layoutY="397.0" mnemonicParsing="false" onAction="#deleteVehicle" text="Eliminar Vehiculo" />
+      <Button fx:id="btnReturn" layoutX="432.0" layoutY="397.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menu Principal" />
+      <Button fx:id="btnAddNewOrder" layoutX="280.0" layoutY="397.0" mnemonicParsing="false" onAction="#addNewOrder" text="Agregar nueva orden" />
    </children>
 </AnchorPane>

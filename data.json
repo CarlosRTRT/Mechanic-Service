@@ -1,0 +1,191 @@
+[
+	{
+		"id": "118450623",
+		"fullName": "Juan Pérez González",
+		"phoneNumber": 88776655,
+		"email": "juan.perez@email.com",
+		"direction": "San José, Escazú, Residencial Los Árboles",
+		"vehicles": [
+			{
+				"licensePlate": "ABC-123",
+				"brand": "Toyota",
+				"model": "Corolla",
+				"year": 2020,
+				"fuelType": "Gasolina",
+				"owner": "Juan Pérez González",
+				"order": null
+			},
+			{
+				"licensePlate": "ABC-456",
+				"brand": "Honda",
+				"model": "CR-V",
+				"year": 2022,
+				"fuelType": "Híbrido",
+				"owner": "Juan Pérez González",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "205340891",
+		"fullName": "María García Rodríguez",
+		"phoneNumber": 87654321,
+		"email": "maria.garcia@email.com",
+		"direction": "Alajuela, Centro, Avenida 3",
+		"vehicles": [
+			{
+				"licensePlate": "XYZ-789",
+				"brand": "Mazda",
+				"model": "CX-5",
+				"year": 2021,
+				"fuelType": "Gasolina",
+				"owner": "María García Rodríguez",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "304560789",
+		"fullName": "Carlos Rodríguez Méndez",
+		"phoneNumber": 83456789,
+		"email": "carlos.rodriguez@email.com",
+		"direction": "Heredia, San Francisco, Condominio Vista Verde",
+		"vehicles": [
+			{
+				"licensePlate": "DEF-456",
+				"brand": "Nissan",
+				"model": "Sentra",
+				"year": 2019,
+				"fuelType": "Gasolina",
+				"owner": "Carlos Rodríguez Méndez",
+				"order": null
+			},
+			{
+				"licensePlate": "DEF-789",
+				"brand": "Nissan",
+				"model": "X-Trail",
+				"year": 2023,
+				"fuelType": "Diesel",
+				"owner": "Carlos Rodríguez Méndez",
+				"order": null
+			},
+			{
+				"licensePlate": "DEF-321",
+				"brand": "Toyota",
+				"model": "Hilux",
+				"year": 2021,
+				"fuelType": "Diesel",
+				"owner": "Carlos Rodríguez Méndez",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "106780234",
+		"fullName": "Ana López Vargas",
+		"phoneNumber": 89012345,
+		"email": "ana.lopez@email.com",
+		"direction": "Cartago, Centro, Barrio Los Ángeles",
+		"vehicles": [
+			{
+				"licensePlate": "GHI-321",
+				"brand": "Tesla",
+				"model": "Model 3",
+				"year": 2023,
+				"fuelType": "Eléctrico",
+				"owner": "Ana López Vargas",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "502340987",
+		"fullName": "Pedro Martínez Soto",
+		"phoneNumber": 84567890,
+		"email": "pedro.martinez@email.com",
+		"direction": "San José, Curridabat, Urbanización El Prado",
+		"vehicles": [
+			{
+				"licensePlate": "JKL-654",
+				"brand": "Hyundai",
+				"model": "Tucson",
+				"year": 2020,
+				"fuelType": "Gasolina",
+				"owner": "Pedro Martínez Soto",
+				"order": null
+			},
+			{
+				"licensePlate": "JKL-987",
+				"brand": "Kia",
+				"model": "Sportage",
+				"year": 2022,
+				"fuelType": "Híbrido",
+				"owner": "Pedro Martínez Soto",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "701230456",
+		"fullName": "Laura Fernández Castro",
+		"phoneNumber": 86789012,
+		"email": "laura.fernandez@email.com",
+		"direction": "Puntarenas, Centro, Calle 5",
+		"vehicles": [
+			{
+				"licensePlate": "MNO-987",
+				"brand": "Ford",
+				"model": "Escape",
+				"year": 2021,
+				"fuelType": "Híbrido",
+				"owner": "Laura Fernández Castro",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "109870654",
+		"fullName": "Roberto Sánchez Mora",
+		"phoneNumber": 82345678,
+		"email": "roberto.sanchez@email.com",
+		"direction": "Limón, Puerto Limón, Barrio Roosevelt",
+		"vehicles": [
+			{
+				"licensePlate": "PQR-147",
+				"brand": "Chevrolet",
+				"model": "Spark",
+				"year": 2018,
+				"fuelType": "Gasolina",
+				"owner": "Roberto Sánchez Mora",
+				"order": null
+			}
+		]
+	},
+	{
+		"id": "208560321",
+		"fullName": "Carmen Jiménez Solano",
+		"phoneNumber": 85678901,
+		"email": "carmen.jimenez@email.com",
+		"direction": "Guanacaste, Liberia, Condominio Las Palmas",
+		"vehicles": [
+			{
+				"licensePlate": "STU-258",
+				"brand": "Volkswagen",
+				"model": "Jetta",
+				"year": 2020,
+				"fuelType": "Gasolina",
+				"owner": "Carmen Jiménez Solano",
+				"order": null
+			},
+			{
+				"licensePlate": "STU-369",
+				"brand": "Volkswagen",
+				"model": "Tiguan",
+				"year": 2023,
+				"fuelType": "Diesel",
+				"owner": "Carmen Jiménez Solano",
+				"order": null
+			}
+		]
+	}
+]

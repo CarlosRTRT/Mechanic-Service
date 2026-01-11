@@ -61,11 +61,7 @@ public class Mechanic {
 
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", fullName=" + fullName + ", specialty=" + specialty + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + "]";
+		return  fullName + ", " + specialty;
 	}
 	
-	public String toStringForCb() {
-		return "Nombre completo: " + fullName + ", Especialidad: " + specialty;
-	}
 }

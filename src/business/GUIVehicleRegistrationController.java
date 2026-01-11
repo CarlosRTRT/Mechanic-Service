@@ -39,6 +39,7 @@ public class GUIVehicleRegistrationController implements Initializable {
 	private String fuelTypeSelected;
 	private int yearSelected;
 	private MyUtils utils;
+    private int currentVehicleCount = 0;
 	
 	private Client client;
 	private int numbOfVehicles;
@@ -111,6 +112,7 @@ public class GUIVehicleRegistrationController implements Initializable {
 			GUIOrdersController ordersController = loader.getController();		
 			ordersController.setClient(client);
 			ordersController.setVehicle(vehicle);
+			ordersController.setCurrentVehicleCount(currentVehicleCount + 1);
 			ordersController.setNumbOfVehicles(numbOfVehicles);
 		
 			utils.changeView(btnRegister, root);
@@ -134,5 +136,11 @@ public class GUIVehicleRegistrationController implements Initializable {
 	}
 	public void setNumbOfVehicles(int numbOfVehicles) {
 		this.numbOfVehicles = numbOfVehicles;
+	}
+	public int getCurrentVehicleCount() {
+		return currentVehicleCount;
+	}
+	public void setCurrentVehicleCount(int currentVehicleCount) {
+		this.currentVehicleCount = currentVehicleCount;
 	}
 }

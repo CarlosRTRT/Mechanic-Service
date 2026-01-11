@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import business.LogicAlert;
@@ -60,6 +61,18 @@ public class VehicleData {
 				}
 			}
 		}
+	}
+	
+	public static ArrayList<Vehicle> getList(){
+		ArrayList<Client> clients = ClientData.getList();
+		ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+		
+		for(Client clientsTemp : clients) {
+			for(Vehicle vehiclesTemp : clientsTemp.getVehicles()) {
+				vehicles.add(vehiclesTemp);
+			}
+		}
+		return vehicles;
 	}
 
 }

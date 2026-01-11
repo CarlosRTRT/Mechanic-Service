@@ -14,7 +14,6 @@ import java.util.Random;
 
 import data.ClientData;
 import data.MechanicData;
-import data.OrdersData;
 import data.ServicesData;
 import data.VehicleData;
 import domain.Client;
@@ -33,7 +32,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class GUIOrdersController {
+public class GUIAsignMoreOrdersController {
 	@FXML
 	private TextField tfNumOfOrder;
 	@FXML
@@ -64,20 +63,9 @@ public class GUIOrdersController {
 	private Client client;
 	private Vehicle vehicle;
 	private int numbOfVehicles;
-	private int price;
-    private int currentVehicleCount = 0;
-
-	public int getCurrentVehicleCount() {
-		return currentVehicleCount;
-	}
-
-	public void setCurrentVehicleCount(int currentVehicleCount) {
-		this.currentVehicleCount = currentVehicleCount;
-	}
 
 	ArrayList<Services> servicesOnTable;
 	private ArrayList<Services> services;
-	ArrayList<Orders> orders;
 	//columnas de Vehiculo
 	
 	private TableColumn<Vehicle, String> tcLicensePlate;
@@ -99,10 +87,8 @@ public class GUIOrdersController {
 	private void initialize() {	
 		this.services = ServicesData.getList();
 		this.servicesOnTable = new ArrayList<Services>();
-		this.orders = new ArrayList<Orders>();
 		this.utils = new MyUtils();
 		tfOrderState.setText("Por registrar");
-		tfTotalPrice.setText(String.valueOf("$"+price));
 		fillCbMechanics();
 		fillCbServices();
 		initTableViewVehicle();
@@ -144,8 +130,6 @@ public class GUIOrdersController {
 		for(Services serviceTemp : services) {
 			if(serviceTemp.getServiceName().equals(serviceSelected)) {
 				servicesOnTable.add(serviceTemp);
-				price += serviceTemp.getBaseCost();
-				tfTotalPrice.setText(String.valueOf("$"+price));
 				
                 final String serviceName = serviceSelected;
                 Platform.runLater(() -> {
@@ -175,8 +159,6 @@ public class GUIOrdersController {
 			}
 		}
 		
-		price -= serviceSelected.getBaseCost();
-		tfTotalPrice.setText(String.valueOf("$" + price));
 		setDataTableViewServices();
 	}
 
@@ -244,7 +226,7 @@ public class GUIOrdersController {
 	private void setDataTableOfVehicle() {
 	    System.out.println("setDataTableOfVehicle llamado");
 	    if (vehicle != null) {
-	        System.out.println("Vehiculo no es null: " + vehicle.toString());
+	        System.out.println("Vehículo no es null: " + vehicle.toString());
 	        ObservableList<Vehicle> observable = FXCollections.observableArrayList(vehicle);
 	        System.out.println("Items en observable: " + observable.size());
 	        tvVehicle.setItems(observable);
@@ -262,57 +244,7 @@ public class GUIOrdersController {
 	// Event Listener on Button[#btnRegisterOrder].onAction
 	@FXML
 	public void addOrder(ActionEvent event) {
-		
-		Random random = new Random();
-		
-		int numero = random.nextInt(1000);
-		
-		Orders order = new Orders();
-		
-		order.setOrderNumber(numero);
-		order.setOrderState("Registrada");
-		order.setCreationDate(dpCreationDate.getValue());
-		order.setObservations(tfOservation.getText());
-		order.setServices(servicesOnTable);
-		order.setTotalPrice(price);
-		
-		ArrayList<Mechanic> mechanics = MechanicData.getList();
-		Mechanic mechanicName = cbMechanicSelected.getSelectionModel().getSelectedItem();
 
-		order.setMechanic(mechanicName);
-		
-		orders.add(order);
-		
-		ClientData.saveClient(client);
-		VehicleData.saveVehicleIntoClient(vehicle);
-		OrdersData.saveOrderIntoVehicle(orders);
-		
-		if (currentVehicleCount < numbOfVehicles) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIVehicleRegistration.fxml"));
-                Parent root = loader.load();
-                
-                GUIVehicleRegistrationController vehicleController = loader.getController();
-                vehicleController.setClient(client);
-                vehicleController.setNumbOfVehicles(numbOfVehicles);
-                vehicleController.setCurrentVehicleCount(currentVehicleCount);
-                utils.changeView(btnRegisterOrder, root);
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-                LogicAlert.alertMessage("Error al cargar la vista de vehiculos");
-            }
-        } else {
-            LogicAlert.alertMessage("Todos los vehiculos y ordenes registrados exitosamente");
-            
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
-                Parent root = loader.load();
-                utils.changeView(btnRegisterOrder, root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 		
 		
 	}

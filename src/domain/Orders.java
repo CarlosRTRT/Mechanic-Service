@@ -1,18 +1,23 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Orders {
 	private int orderNumber;// UNICO Y AUTOMATICO
-	private String creationDate;
+	private LocalDate creationDate;
 	private String orderState; // (Registrada, En proceso, Completada, Entregada, Cancelada).
 	private Mechanic mechanic;
 	private List<Services> services;
 	private String observations;
 	private int totalPrice;
 	
-	public Orders(int orderNumber, String creationDate, String orderState,
+	public Orders() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Orders(int orderNumber, LocalDate creationDate, String orderState,
 			Mechanic mechanic, Services services, String observations, int totalPrice) {
 		super();
 		this.orderNumber = orderNumber;
@@ -32,12 +37,12 @@ public class Orders {
 		this.orderNumber = orderNumber;
 	}
 
-	public String getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
+	public void setCreationDate(LocalDate localDate) {
+		this.creationDate = localDate;
 	}
 
 	public String getOrderState() {

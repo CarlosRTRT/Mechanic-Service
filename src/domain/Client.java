@@ -79,6 +79,9 @@ public class Client {
 	}
 	
 	public void addVehicle(Vehicle vehicle) {
+	    if (this.vehicles == null) {
+	        this.vehicles = new ArrayList<>();
+	    }
 		this.vehicles.add(vehicle);
 	}
 	

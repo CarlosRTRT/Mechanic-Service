@@ -54,9 +54,7 @@ public class GUIPrincipalController {
 	public void showAdministrationVehicle(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminVehicle.fxml"));
-			Parent root = loader.load();	
-			GUIOrdersController ordersController = loader.getController();		
-		
+			Parent root = loader.load();		
 			utils.changeView(btnClient, root);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

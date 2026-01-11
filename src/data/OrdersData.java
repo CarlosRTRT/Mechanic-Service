@@ -9,7 +9,7 @@ import domain.Vehicle;
 
 public class OrdersData {
 	
-	public static void saveOrderIntoVehicle(List<Orders> order ) {
+	public static void saveOrderIntoVehicle(List<Orders> order) {
 		try {
 			List<Client> clients = ClientData.getList();
 			
@@ -18,7 +18,6 @@ public class OrdersData {
 			Vehicle lastVehicle = vehicles.getLast();
 			
 			lastVehicle.setOrder(order);
-			
 			
 			ClientData.editClient(last);
 			
