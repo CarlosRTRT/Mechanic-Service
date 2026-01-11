@@ -8,10 +8,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:controller="business.GUIOrdersController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIOrdersController">
    <children>
-      <Label layoutX="25.0" layoutY="74.0" text="NUMERO DE ORDEN" />
+      <Label layoutX="22.0" layoutY="73.0" text="NUMERO DE ORDEN" />
       <TextField fx:id="tfNumOfOrder" editable="false" layoutX="25.0" layoutY="91.0" />
       <Label layoutX="188.0" layoutY="74.0" text="ELEGIR FECHA:" />
       <DatePicker fx:id="dpCreationDate" layoutX="188.0" layoutY="91.0" prefWidth="149.0" />
@@ -32,6 +31,6 @@
       <TextField fx:id="tfOservation" layoutX="23.0" layoutY="381.0" prefHeight="35.0" prefWidth="225.0" />
       <Button fx:id="btnRegisterOrder" layoutX="382.0" layoutY="386.0" mnemonicParsing="false" onAction="#addOrder" text="Registrar Orden de Trabajo" />
       <Button fx:id="btnCancel" layoutX="551.0" layoutY="386.0" mnemonicParsing="false" onAction="#cancelRegister" text="Cancelar Registro" />
-      <Label layoutX="238.0" layoutY="34.0" text="REGISTRO DE ORDENES DE TRABAJO" underline="true" />
+      <Label layoutX="235.0" layoutY="33.0" text="REGISTRO DE ORDENES DE TRABAJO" underline="true" />
    </children>
 </AnchorPane>

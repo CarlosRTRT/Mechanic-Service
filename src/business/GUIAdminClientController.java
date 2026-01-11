@@ -3,9 +3,10 @@ package business;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
-
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.cell.PropertyValueFactory;
+import domain.Client;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.TableView;
@@ -29,11 +30,40 @@ public class GUIAdminClientController {
 	private Button btnDelete;
 	@FXML
 	private Button btnReturn;
+	
+	private TableColumn<Client, String> tcId;
+	private TableColumn<Client, String> tcFullName;
+	private TableColumn<Client, Integer> tcPhoneNumber;
+	private TableColumn<Client, String> tcEmail;
+	private TableColumn<Client, String> tcDirection;
+	
 	private MyUtils utils;
 	
 	@FXML
 	private void initialize() {
 		this.utils = new MyUtils();
+		initTableView();
+	}
+	
+	private void initTableView() {
+		this.tcId = new TableColumn<Client, String>("Identificacion");
+		this.tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		
+		this.tcFullName = new TableColumn<Client, String>("Nombre");
+		this.tcFullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+		
+		this.tcPhoneNumber = new TableColumn<Client, Integer>("Telefono");
+		this.tcPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+		
+		this.tcEmail = new TableColumn<Client, String>("Correo Electronico");
+		this.tcEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		
+		this.tcDirection = new TableColumn<Client, String>("Direccion");
+		this.tcDirection.setCellValueFactory(new PropertyValueFactory<>("direction"));
+		
+		this.tvClients.getColumns().addAll(this.tcId, this.tcFullName, this.tcPhoneNumber, this.tcEmail, this.tcDirection);
+		this.tvClients.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
 	}
 
 	// Event Listener on Button[#btnEdit].onAction
