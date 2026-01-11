@@ -7,6 +7,10 @@ public class Mechanic {
 	private int phoneNumber;
 	private String email;
 	
+	public Mechanic() {
+		
+	}
+	
 	public Mechanic(String id, String fullName, String specialty, int phoneNumber, String email) {
 		this.id = id;
 		this.fullName = fullName;
@@ -61,4 +65,7 @@ public class Mechanic {
 				+ phoneNumber + ", email=" + email + "]";
 	}
 	
+	public String toStringForCb() {
+		return "Nombre completo: " + fullName + ", Especialidad: " + specialty;
+	}
 }

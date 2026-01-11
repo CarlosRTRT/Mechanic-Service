@@ -25,7 +25,7 @@ public class OrdersData {
 			LogicAlert.alertMessage("Orden Agregada a vehiculo exitosamente");
 			
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			System.out.println("Orders.saveOrderIntoVehicle");
 		}
 	}

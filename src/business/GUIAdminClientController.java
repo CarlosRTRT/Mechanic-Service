@@ -1,12 +1,16 @@
 package business;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import domain.Client;
+
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.TableView;
@@ -78,6 +82,13 @@ public class GUIAdminClientController {
 	}
 	@FXML
 	public void returnMenu(ActionEvent event) {
-		utils.changeView(btnEdit, "/presentation/GUIPrincipal.fxml");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnReturn, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

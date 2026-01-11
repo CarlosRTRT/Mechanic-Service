@@ -1,14 +1,18 @@
 package business;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import domain.Client;
 import domain.Vehicle;
 import javafx.event.ActionEvent;
 
@@ -35,17 +39,27 @@ public class GUIVehicleRegistrationController implements Initializable {
 	private String fuelTypeSelected;
 	private int yearSelected;
 	private MyUtils utils;
+	
+	private Client client;
+	private int numbOfVehicles;
 
 	// Event Listener on Button[#btnRegister].onAction
 	@FXML
 	public void vehicleRegistration(ActionEvent event) {
 		createVehicle(fuelTypeSelected, yearSelected);
-		utils.changeView(btnCancel, "/presentation/GUIOrders.fxml");
+		
 	}
 	// Event Listener on Button[#btnCancel].onAction
 	@FXML
 	public void cancelRegistration(ActionEvent event) {
-		utils.changeView(btnRegister, "/presentation/GUIPrincipal.fxml");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnRegister, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	// Event Listener on ComboBox[#cbFuelType].onAction
 	@FXML
@@ -83,13 +97,42 @@ public class GUIVehicleRegistrationController implements Initializable {
 	public void createVehicle(String fuelTypeSelected, int yearSelected) {
 		Vehicle vehicle = new Vehicle();
 		
-		vehicle.setFuelType(fuelTypeSelected);
-		vehicle.setlicensePlate(tfLicensePlate.getText());
-		vehicle.setBrand(tfBrand.getText());
-		vehicle.setModel(tfModel.getText());
-		vehicle.setOwner(tfOwner.getText());
-		vehicle.setYear(yearSelected);
+	    vehicle.setFuelType(fuelTypeSelected);
+	    vehicle.setLicensePlate(tfLicensePlate.getText());
+	    vehicle.setBrand(tfBrand.getText());
+	    vehicle.setModel(tfModel.getText());
+	    vehicle.setOwner(tfOwner.getText());
+	    vehicle.setYear(yearSelected);
 		
 		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIOrders.fxml"));
+			Parent root = loader.load();	
+			GUIOrdersController ordersController = loader.getController();		
+			ordersController.setClient(client);
+			ordersController.setVehicle(vehicle);
+			ordersController.setNumbOfVehicles(numbOfVehicles);
+		
+			utils.changeView(btnRegister, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+
+		
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	public int getNumbOfVehicles() {
+		return numbOfVehicles;
+	}
+	public void setNumbOfVehicles(int numbOfVehicles) {
+		this.numbOfVehicles = numbOfVehicles;
 	}
 }

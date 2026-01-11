@@ -1,11 +1,15 @@
 package business;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
+
 import domain.Services;
 import javafx.event.ActionEvent;
 
@@ -79,6 +83,13 @@ public class GUIAdminServiceController {
 	// Event Listener on Button[#btnReturn].onAction
 	@FXML
 	public void returnMenu(ActionEvent event) {
-		utils.changeView(btnEdit, "/presentation/GUIPrincipal.fxml");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnEdit, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

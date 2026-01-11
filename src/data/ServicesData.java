@@ -1,7 +1,10 @@
 package data;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import domain.Services;
 
@@ -15,9 +18,22 @@ public class ServicesData {
 		try {
 			jsonUtils.saveElement(service);
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			System.out.println("ServicesData.saveService");
 		}
+	}
+	
+	static {
+	    File file = new File(filePath);
+	    if (!file.exists()) {
+	        try {
+	            file.createNewFile();
+	            // Escribir un array vacío
+	            new ObjectMapper().writeValue(file, new ArrayList<Services>());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 	
 	public static void editService(Services service) {
@@ -40,7 +56,7 @@ public class ServicesData {
 		} catch (Exception e) {
 			
 			System.out.println("ServicesData.editService");
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
@@ -60,8 +76,9 @@ public class ServicesData {
 		try {
 			return (ArrayList<Services>) jsonUtils.getAll(Services.class);
 		} catch (IOException e) {
-			 System.out.println("Error al recuperar la lista de servicios");
-			 return new ArrayList<Services>();
+			e.printStackTrace();
+			System.out.println("Error al recuperar la lista de servicios");
+			return new ArrayList<Services>();
 		}
 	}
 }

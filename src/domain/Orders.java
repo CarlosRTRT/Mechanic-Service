@@ -7,21 +7,17 @@ public class Orders {
 	private int orderNumber;// UNICO Y AUTOMATICO
 	private String creationDate;
 	private String orderState; // (Registrada, En proceso, Completada, Entregada, Cancelada).
-	private Vehicle vehicle;
-	private Client client;
 	private Mechanic mechanic;
 	private List<Services> services;
 	private String observations;
 	private int totalPrice;
 	
-	public Orders(int orderNumber, String creationDate, String orderState, Vehicle vehicle, Client client,
+	public Orders(int orderNumber, String creationDate, String orderState,
 			Mechanic mechanic, Services services, String observations, int totalPrice) {
 		super();
 		this.orderNumber = orderNumber;
 		this.creationDate = creationDate;
 		this.orderState = orderState;
-		this.vehicle = vehicle;
-		this.client = client;
 		this.mechanic = mechanic;
 		this.services = new ArrayList<>();
 		this.observations = observations;
@@ -50,22 +46,6 @@ public class Orders {
 
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
 	}
 
 	public Mechanic getMechanic() {
@@ -107,7 +87,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [orderNumber=" + orderNumber + ", creationDate=" + creationDate + ", orderState=" + orderState
-				+ ", vehicle=" + vehicle + ", client=" + client + ", mechanic=" + mechanic + ", services=" + services
+				+ ", mechanic=" + mechanic + ", services=" + services
 				+ ", observations=" + observations + ", totalPrice=" + totalPrice + "]";
 	}
 	

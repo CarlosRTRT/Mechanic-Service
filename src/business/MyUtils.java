@@ -1,5 +1,9 @@
 package business;
 
+import java.util.ArrayList;
+
+import data.ServicesData;
+import domain.Services;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,10 +12,9 @@ import javafx.stage.Stage;
 
 public class MyUtils {
 	
-	public void changeView(Button btn, String path) {
+	public void changeView(Button btn, Parent root) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-			Parent root = loader.load();
+
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			
@@ -25,6 +28,15 @@ public class MyUtils {
 		}catch(Exception e) {
 			System.out.println("Error"+e.getMessage());
 		}
+	}
+	
+	public boolean verifyServices() {
+		ArrayList<Services> services = ServicesData.getList();
+		
+		if(services.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 }

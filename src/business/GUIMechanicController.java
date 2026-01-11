@@ -1,10 +1,13 @@
 package business;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 
@@ -40,11 +43,25 @@ public class GUIMechanicController {
 	// Event Listener on Button[#btnEditMechanic].onAction
 	@FXML
 	public void returnMenu(ActionEvent event) {
-		utils.changeView(btnAddMechanic, "/presentation/GUIPrincipal.fxml");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnReturn, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	// Event Listener on Button[#btnShowListMechanic].onAction
 	@FXML
 	public void showListMechanic(ActionEvent event) {
-		utils.changeView(btnAddMechanic, "/presentation/GUIAdminMechanic.fxml");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminMechanic.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnAddMechanic, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

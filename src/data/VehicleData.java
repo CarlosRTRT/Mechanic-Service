@@ -21,7 +21,7 @@ public class VehicleData {
 			LogicAlert.alertMessage("Vehiculo Agregado a cliente exitosamente");
 			
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			System.out.println("Vehicle.saveVehicleIntoClient");
 		}
 	}
@@ -31,10 +31,10 @@ public class VehicleData {
 		
 		for(Client client: clients) {
 			for(Vehicle tempVehicle : client.getVehicles()) {
-				if(tempVehicle.getlicensePlate().equals(vehicle.getlicensePlate())) {
+				if(tempVehicle.getLicensePlate().equals(vehicle.getLicensePlate())) {
 					tempVehicle.setBrand(vehicle.getBrand());
 					tempVehicle.setFuelType(vehicle.getFuelType());
-					tempVehicle.setlicensePlate(vehicle.getlicensePlate());
+					tempVehicle.setLicensePlate(vehicle.getLicensePlate());
 					tempVehicle.setModel(vehicle.getModel());
 					tempVehicle.setOrder(vehicle.getOrder());
 					tempVehicle.setOwner(vehicle.getOwner());
@@ -53,7 +53,7 @@ public class VehicleData {
 			List<Vehicle> vehicles = client.getVehicles();
 
 			for(int i = 0; i < vehicles.size(); i++) {
-				if(vehicles.get(i).getlicensePlate().equals(vehicle.getlicensePlate())) {
+				if(vehicles.get(i).getLicensePlate().equals(vehicle.getLicensePlate())) {
 					vehicles.remove(i);
 					ClientData.editClient(client);
 					return;

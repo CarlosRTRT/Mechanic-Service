@@ -7,6 +7,10 @@ public class Services {
 	private int baseCost;
 	private int estimatedTime; // EN HORAS
 	
+	public Services() {
+		
+	}
+	
 	public Services(int serviceCode, String serviceName, String description, int baseCost, int estimatedTime) {
 		this.serviceCode = serviceCode;
 		this.serviceName = serviceName;

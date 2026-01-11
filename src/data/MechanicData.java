@@ -14,7 +14,7 @@ public class MechanicData {
 		try {
 			jsonUtils.saveElement(mechanic);
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			System.out.println("MechanicData.saveMechanic");
 		}
 	}
@@ -38,7 +38,7 @@ public class MechanicData {
 		} catch (Exception e) {
 			
 			System.out.println("ServicesData.editService");
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
@@ -58,8 +58,9 @@ public class MechanicData {
 		try {
 			return (ArrayList<Mechanic>) jsonUtils.getAll(Mechanic.class);
 		} catch (IOException e) {
-			 System.out.println("Error al recuperar la lista de mecanicos");
-			 return new ArrayList<Mechanic>();
+			e.printStackTrace();
+			System.out.println("Error al recuperar la lista de mecanicos");
+			return new ArrayList<Mechanic>();
 		}
 	}
 }

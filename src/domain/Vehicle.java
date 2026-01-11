@@ -10,7 +10,12 @@ public class Vehicle {
 	private int year;
 	private String fuelType; //(gasolina, diésel, eléctrico, híbrido)
 	private String owner;
-	private List<Orders> order;
+	private List<Orders> order;	
+	
+	
+	public Vehicle() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Vehicle(String licensePlate, String brand, String model, int year, String fuelType, String owner) {
 		this.licensePlate = licensePlate;
@@ -22,15 +27,13 @@ public class Vehicle {
 		this.order = new ArrayList<>();
 	}
 
-	public Vehicle() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public String getlicensePlate() {
+
+	public String getLicensePlate() {
 		return licensePlate;
 	}
 
-	public void setlicensePlate(String licensePlate) {
+	public void setLicensePlate(String licensePlate) {
 		this.licensePlate = licensePlate;
 	}
 

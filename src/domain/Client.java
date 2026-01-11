@@ -20,6 +20,10 @@ public class Client {
 		this.vehicles = new ArrayList<>();
 	}
 
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getId() {
 		return id;
 	}

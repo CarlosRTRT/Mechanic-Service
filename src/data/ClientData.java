@@ -24,6 +24,7 @@ public class ClientData {
 		 try {
 			jsonUtils.saveElement(client);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error al guardar en data.json");
 		}
 	 }
@@ -55,7 +56,7 @@ public class ClientData {
 			System.out.println("Cliente Modificado");
 			return true;
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			System.out.println("Error al modificar el cliente");
 			return false;
 		}
