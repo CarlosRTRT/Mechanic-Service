@@ -64,6 +64,40 @@ public class ClientData {
 		 
 	 }
 	 
+	 public static boolean deleteClient(Client clientToEliminate, String id) {
+		 
+		 try {
+			 ArrayList<Client> clients = getList();
+				 
+			 int index = 0;
+			 boolean found = false;
+				 
+			 for(Client temp : clients) {
+				 if(temp.getId().equals(id)) {
+					 clients.remove(index);
+					 found = true;
+					 break;
+				 }
+				 index++;
+			 }
+			 
+			if(!found) {
+	            System.out.println("Cliente no encontrado");
+	            return false;
+			}		
+			
+			jsonUtils.saveAll(clients);
+			System.out.println("Cliente Eliminado");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al eliminar el cliente");
+			return false;
+		}
+		 
+		 
+	 }
+	 
 	 public static ArrayList<Client> getList(){
 		 try {
 			return (ArrayList<Client>) jsonUtils.getAll(Client.class);
