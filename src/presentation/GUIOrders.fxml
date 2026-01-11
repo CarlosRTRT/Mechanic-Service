@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIOrdersController">
 
    <children>
@@ -19,7 +18,7 @@
       <Label layoutX="349.0" layoutY="74.0" text="ESTADO DE LA ORDEN" />
       <TextField fx:id="tfOrderState" editable="false" layoutX="349.0" layoutY="91.0" />
       <Label layoutX="510.0" layoutY="74.0" text="ELEGIR MECANICO:" />
-      <ComboBox fx:id="cbMechanicSelected" layoutX="510.0" layoutY="91.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbMechanicSelected" layoutX="510.0" layoutY="91.0" prefWidth="150.0" promptText="ELIJA UN MECANICO" />
       <Label layoutX="25.0" layoutY="125.0" text="VEHICULO A ASOCIAR:" />
 
       <TableView fx:id="tvVehicle" layoutX="25.0" layoutY="152.0" prefHeight="52.0" prefWidth="644.0" />

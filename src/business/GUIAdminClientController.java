@@ -99,6 +99,7 @@ public class GUIAdminClientController {
 	// Event Listener on Button[#btnEdit].onAction
 	@FXML
 	public void editClient(ActionEvent event) {
+		if(selectClient()) return;//valida que se haya seleccionado un cliente en el table view al tocar el boton de editar
 		if(clients != null && clientSelected != null) {
 				Client clientUpdated = new Client();
 				
@@ -114,11 +115,14 @@ public class GUIAdminClientController {
 				
 				clients = ClientData.getList();
 				setDataOnTableView();
+				clearData();
 		}
 	}
 	// Event Listener on Button[#btnDelete].onAction
 	@FXML
 	public void deleteClient(ActionEvent event) {
+		
+		if(selectClient()) return;//valida que se haya seleccionado un cliente en el table view al tocar el boton de eliminar
 		if(clients != null && clientSelected != null) {
 
 		
@@ -127,6 +131,7 @@ public class GUIAdminClientController {
 			
 			clients = ClientData.getList();
 			setDataOnTableView();
+			clearData();
 	}
 	}
 	@FXML
@@ -139,5 +144,21 @@ public class GUIAdminClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean selectClient() {
+		if(tvClients.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un cliente en la Lista");
+			return true;
+		}
+		return false;
+	}
+	
+	private void clearData() {
+		tfId.clear();
+		tfFullName.clear();
+		tfDirection.clear();
+		tfEmail.clear();
+		tfPhoneNumber.clear();
 	}
 }

@@ -10,7 +10,7 @@
    <children>
       <Label layoutX="14.0" layoutY="14.0" />
       <Label layoutX="75.0" layoutY="64.0" text="IDENTIFICACIÓN" />
-      <TextField fx:id="tfId" layoutX="45.0" layoutY="82.0" />
+      <TextField fx:id="tfId" editable="false" layoutX="45.0" layoutY="82.0" />
       <Label layoutX="241.0" layoutY="64.0" text="NOMBRE COMPLETO" />
       <Label layoutX="415.0" layoutY="64.0" text="NUMERO DE TELEFONO" />
       <Label layoutX="140.0" layoutY="122.0" text="CORREO ELECTRONICO" />

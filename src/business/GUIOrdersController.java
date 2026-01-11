@@ -263,6 +263,7 @@ public class GUIOrdersController {
 	@FXML
 	public void addOrder(ActionEvent event) {
 		
+		if(validForm()) return;//valida el formulario
 		Random random = new Random();
 		
 		int numero = random.nextInt(1000);
@@ -353,5 +354,22 @@ public class GUIOrdersController {
 
 	public void setNumbOfVehicles(int numbOfVehicles) {
 		this.numbOfVehicles = numbOfVehicles;
+	}
+	
+	private boolean validForm() {
+		if(dpCreationDate.getValue() == null) {//valida que se seleccione una fecha
+			LogicAlert.alertMessage("Debe seleccionar una fecha");
+			return true;
+		}else if(cbMechanicSelected.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un mecanico");
+			return true;
+		}else if(tfOservation.getText().isBlank()) {
+			LogicAlert.alertMessage("Debe dejar una observacion");
+			return true;
+		}else if(tvServices.getItems().isEmpty()) {
+			LogicAlert.alertMessage("Debe elegirse al menos un servicio");
+			return true;
+		}
+		return false;
 	}
 }

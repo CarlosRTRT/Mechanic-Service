@@ -96,6 +96,8 @@ public class GUIVehicleRegistrationController implements Initializable {
 
 	
 	public void createVehicle(String fuelTypeSelected, int yearSelected) {
+		
+		if(validForm()) return;//validacion del formulario
 		Vehicle vehicle = new Vehicle();
 		
 	    vehicle.setFuelType(fuelTypeSelected);
@@ -120,10 +122,6 @@ public class GUIVehicleRegistrationController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
-
-		
 	}
 	public Client getClient() {
 		return client;
@@ -142,5 +140,21 @@ public class GUIVehicleRegistrationController implements Initializable {
 	}
 	public void setCurrentVehicleCount(int currentVehicleCount) {
 		this.currentVehicleCount = currentVehicleCount;
+	}
+	
+	private boolean validForm() {
+		if(tfLicensePlate.getText().isBlank() ||
+				tfBrand.getText().isBlank() || tfModel.getText().isBlank() || 
+				tfOwner.getText().isBlank()) {//valida que no queden datos vacios
+			LogicAlert.alertMessage("No dejar datos vacios");
+			return true;
+		}else if(cbFuelType.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un tipo de combustible");
+			return true;
+		}else if(cbYear.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un año");
+			return true;
+		}
+		return false;
 	}
 }

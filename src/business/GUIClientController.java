@@ -36,13 +36,12 @@ public class GUIClientController {
 		this.utils = new MyUtils();
 	}
 	
-	
 	//Boton agregar Cliente, envia a la GUI de registro de vehiculo
 	@FXML
 	public void addClient(ActionEvent event) {
 		
+		if(validForm())return;//Valida los datos del formulario
 		Client client = new Client();
-		
 		client.setDirection(tfDirection.getText());
 		client.setEmail(tfEmail.getText());
 		client.setFullName(tfFullName.getText());
@@ -83,5 +82,24 @@ public class GUIClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean validForm() {
+		if(tfFullName.getText().isBlank() || tfDirection.getText().isBlank() || 
+				tfEmail.getText().isBlank()) {//valida que no queden datos vacios
+			LogicAlert.alertMessage("No dejar datos vacios");
+			return true;
+		}else if(!tfId.getText().matches("\\d{9}")) {
+			//valida que la identificacion sean solo 9 numeros
+			LogicAlert.alertMessage("La identificacion deben ser 9 digitos numericos");
+			return true;
+		}else if(!tfPhoneNumber.getText().matches("\\d+")) {//valida que el numero de telefono sean solo numeros
+			LogicAlert.alertMessage("El numero de telefono deben ser solo numeros");
+			return true;
+		}else if(!tfNumOfVehicles.getText().matches("\\d+")) {//valida que la cantidad de vehiculos debe ser solo numeros
+			LogicAlert.alertMessage("Cantidad de vehiculos debe ser un numero");
+			return true;
+		}
+		return false;
 	}
 }

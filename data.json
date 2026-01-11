@@ -79,32 +79,5 @@
 				"order": null
 			}
 		]
-	},
-	{
-		"id": "208560321",
-		"fullName": "Carmen Jiménez Solano",
-		"phoneNumber": 85678901,
-		"email": "carmen.jimenez@email.com",
-		"direction": "Guanacaste, Liberia, Condominio Las Palmas",
-		"vehicles": [
-			{
-				"licensePlate": "STU-258",
-				"brand": "Volkswagen",
-				"model": "Jetta",
-				"year": 2020,
-				"fuelType": "Gasolina",
-				"owner": "Carmen Jiménez Solano",
-				"order": null
-			},
-			{
-				"licensePlate": "STU-369",
-				"brand": "Volkswagen",
-				"model": "Tiguan",
-				"year": 2023,
-				"fuelType": "Diesel",
-				"owner": "Carmen Jiménez Solano",
-				"order": null
-			}
-		]
 	}
 ]
