@@ -14,6 +14,7 @@ import java.util.Random;
 
 import data.ClientData;
 import data.MechanicData;
+import data.OrdersData;
 import data.ServicesData;
 import data.VehicleData;
 import domain.Client;
@@ -62,7 +63,8 @@ public class GUIAsignMoreOrdersController {
 	
 	private Client client;
 	private Vehicle vehicle;
-	private int numbOfVehicles;
+	private int price;
+
 
 	ArrayList<Services> servicesOnTable;
 	private ArrayList<Services> services;
@@ -82,6 +84,7 @@ public class GUIAsignMoreOrdersController {
 	private TableColumn<Services, String> tcDescription;
 	private TableColumn<Services, Integer> tcBaseCost;
 	private TableColumn<Services, Integer> tcEstimatedTime;
+    private boolean isProcessingServiceSelection = false;
 	
 	@FXML
 	private void initialize() {	
@@ -89,6 +92,7 @@ public class GUIAsignMoreOrdersController {
 		this.servicesOnTable = new ArrayList<Services>();
 		this.utils = new MyUtils();
 		tfOrderState.setText("Por registrar");
+		tfTotalPrice.setText(String.valueOf("$"+price));
 		fillCbMechanics();
 		fillCbServices();
 		initTableViewVehicle();
@@ -97,7 +101,9 @@ public class GUIAsignMoreOrdersController {
 		setCbMechanics();
 		
 		cbServiceSelected.setOnAction(e ->{
-			addServiceToTable();
+	        if (!isProcessingServiceSelection) { 
+	            addServiceToTable();
+	        }
 		});
 		
 	}
@@ -127,14 +133,18 @@ public class GUIAsignMoreOrdersController {
 	        return; // Salir si no hay selección válida
 	    }
 		
+	    isProcessingServiceSelection = true;
 		for(Services serviceTemp : services) {
 			if(serviceTemp.getServiceName().equals(serviceSelected)) {
 				servicesOnTable.add(serviceTemp);
+				price += serviceTemp.getBaseCost();
+				tfTotalPrice.setText(String.valueOf("$"+price));
 				
                 final String serviceName = serviceSelected;
                 Platform.runLater(() -> {
                     cbServiceSelected.getItems().remove(serviceName);
                     cbServiceSelected.getSelectionModel().clearSelection();
+                    isProcessingServiceSelection = false;
                 });
 				
                 setDataTableViewServices();
@@ -159,6 +169,8 @@ public class GUIAsignMoreOrdersController {
 			}
 		}
 		
+		price -= serviceSelected.getBaseCost();
+		tfTotalPrice.setText(String.valueOf("$" + price));
 		setDataTableViewServices();
 	}
 
@@ -226,7 +238,7 @@ public class GUIAsignMoreOrdersController {
 	private void setDataTableOfVehicle() {
 	    System.out.println("setDataTableOfVehicle llamado");
 	    if (vehicle != null) {
-	        System.out.println("Vehículo no es null: " + vehicle.toString());
+	        System.out.println("Vehiculo no es null: " + vehicle.toString());
 	        ObservableList<Vehicle> observable = FXCollections.observableArrayList(vehicle);
 	        System.out.println("Items en observable: " + observable.size());
 	        tvVehicle.setItems(observable);
@@ -244,9 +256,36 @@ public class GUIAsignMoreOrdersController {
 	// Event Listener on Button[#btnRegisterOrder].onAction
 	@FXML
 	public void addOrder(ActionEvent event) {
+		
+		Random random = new Random();
+		
+		int numero = random.nextInt(1000);
+		
+		Orders order = new Orders();
+		
+		order.setOrderNumber(numero);
+		order.setOrderState("Registrada");
+		order.setCreationDate(dpCreationDate.getValue());
+		order.setObservations(tfOservation.getText());
+		order.setServices(servicesOnTable);
+		order.setTotalPrice(price);
+		
+		ArrayList<Mechanic> mechanics = MechanicData.getList();
+		Mechanic mechanicName = cbMechanicSelected.getSelectionModel().getSelectedItem();
 
+		order.setMechanic(mechanicName);
 		
+		OrdersData.addAnotherOrder(order, vehicle);
 		
+		try {                
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAsignMoreOrders.fxml"));                
+			Parent root;
+			root = loader.load(); 
+			utils.changeView(btnRegisterOrder, root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	// Event Listener on Button[#btnCancel].onAction
 	@FXML
@@ -279,11 +318,4 @@ public class GUIAsignMoreOrdersController {
 	    setDataTableOfVehicle();
 	}
 
-	public int getNumbOfVehicles() {
-		return numbOfVehicles;
-	}
-
-	public void setNumbOfVehicles(int numbOfVehicles) {
-		this.numbOfVehicles = numbOfVehicles;
-	}
 }

@@ -13,7 +13,56 @@
 				"year": 2023,
 				"fuelType": "Eléctrico",
 				"owner": "Ana López Vargas",
-				"order": null
+				"order": [
+					{
+						"orderNumber": 845,
+						"creationDate": [
+							2026,
+							1,
+							2
+						],
+						"orderState": "Registrada",
+						"mechanic": {
+							"id": "MEC-003",
+							"fullName": "Luis Fernando Díaz Vargas",
+							"specialty": "electricidad y electrónica automotriz",
+							"phoneNumber": 55281394,
+							"email": "luis.diaz.electrico@tallerpro.mx"
+						},
+						"services": [
+							{
+								"serviceCode": 1001,
+								"serviceName": "Cambio de aceite y filtro",
+								"description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
+								"baseCost": 850,
+								"estimatedTime": 1
+							},
+							{
+								"serviceCode": 1002,
+								"serviceName": "Alineación y balanceo",
+								"description": "Alineación computarizada de 4 ruedas + balanceo de llantas",
+								"baseCost": 950,
+								"estimatedTime": 2
+							},
+							{
+								"serviceCode": 1003,
+								"serviceName": "Diagnóstico electrónico completo",
+								"description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
+								"baseCost": 680,
+								"estimatedTime": 1
+							},
+							{
+								"serviceCode": 1004,
+								"serviceName": "Cambio de balatas delanteras",
+								"description": "Balatas delanteras de calidad + revisión de discos + lubricación",
+								"baseCost": 2450,
+								"estimatedTime": 3
+							}
+						],
+						"observations": "sdf",
+						"totalPrice": 4930
+					}
+				]
 			}
 		]
 	},
@@ -25,22 +74,14 @@
 		"direction": "San José, Curridabat, Urbanización El Prado",
 		"vehicles": [
 			{
-				"licensePlate": "JKL-654",
-				"brand": "Hyundai",
-				"model": "Tucson",
-				"year": 2020,
-				"fuelType": "Gasolina",
-				"owner": "Pedro Martínez Soto",
-				"order": null
-			},
-			{
 				"licensePlate": "JKL-987",
 				"brand": "Kia",
 				"model": "Sportage",
 				"year": 2022,
 				"fuelType": "Híbrido",
 				"owner": "Pedro Martínez Soto",
-				"order": null
+				"order": [
+				]
 			}
 		]
 	},

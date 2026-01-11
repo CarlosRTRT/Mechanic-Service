@@ -66,6 +66,7 @@ public class GUIOrdersController {
 	private int numbOfVehicles;
 	private int price;
     private int currentVehicleCount = 0;
+    private boolean isProcessingServiceSelection = false;
 
 	public int getCurrentVehicleCount() {
 		return currentVehicleCount;
@@ -94,6 +95,7 @@ public class GUIOrdersController {
 	private TableColumn<Services, String> tcDescription;
 	private TableColumn<Services, Integer> tcBaseCost;
 	private TableColumn<Services, Integer> tcEstimatedTime;
+	private int numero;
 	
 	@FXML
 	private void initialize() {	
@@ -103,6 +105,9 @@ public class GUIOrdersController {
 		this.utils = new MyUtils();
 		tfOrderState.setText("Por registrar");
 		tfTotalPrice.setText(String.valueOf("$"+price));
+		Random random = new Random();
+		numero = random.nextInt(1000);
+		tfNumOfOrder.setText("ORDER-"+String.valueOf(numero));
 		fillCbMechanics();
 		fillCbServices();
 		initTableViewVehicle();
@@ -111,7 +116,9 @@ public class GUIOrdersController {
 		setCbMechanics();
 		
 		cbServiceSelected.setOnAction(e ->{
-			addServiceToTable();
+	        if (!isProcessingServiceSelection) { 
+	            addServiceToTable();
+	        }
 		});
 		
 	}
@@ -137,20 +144,23 @@ public class GUIOrdersController {
 		String serviceSelected = cbServiceSelected.getSelectionModel().getSelectedItem();
 		
 	    if (serviceSelected == null || serviceSelected.isEmpty()) {
-	        System.out.println("Selección vacía, ignorando...");
-	        return; // Salir si no hay selección válida
+	        System.out.println("Seleccion vacia");
+	        return; 
 	    }
 		
+	    isProcessingServiceSelection = true;
+	    
 		for(Services serviceTemp : services) {
 			if(serviceTemp.getServiceName().equals(serviceSelected)) {
 				servicesOnTable.add(serviceTemp);
 				price += serviceTemp.getBaseCost();
-				tfTotalPrice.setText(String.valueOf("$"+price));
-				
+				tfTotalPrice.setText(String.valueOf(price));
+
                 final String serviceName = serviceSelected;
                 Platform.runLater(() -> {
                     cbServiceSelected.getItems().remove(serviceName);
                     cbServiceSelected.getSelectionModel().clearSelection();
+                    isProcessingServiceSelection = false;
                 });
 				
                 setDataTableViewServices();
@@ -176,7 +186,7 @@ public class GUIOrdersController {
 		}
 		
 		price -= serviceSelected.getBaseCost();
-		tfTotalPrice.setText(String.valueOf("$" + price));
+		tfTotalPrice.setText(String.valueOf(price));
 		setDataTableViewServices();
 	}
 
@@ -263,10 +273,8 @@ public class GUIOrdersController {
 	@FXML
 	public void addOrder(ActionEvent event) {
 		
-		if(validForm()) return;//valida el formulario
-		Random random = new Random();
-		
-		int numero = random.nextInt(1000);
+		if(validForm()) return;
+
 		
 		Orders order = new Orders();
 		
@@ -285,7 +293,7 @@ public class GUIOrdersController {
 		orders.add(order);
 		
 		ClientData.saveClient(client);
-		VehicleData.saveVehicleIntoClient(vehicle);
+		VehicleData.saveVehicleIntoClient(vehicle, client.getId());
 		OrdersData.saveOrderIntoVehicle(orders);
 		
 		if (currentVehicleCount < numbOfVehicles) {
@@ -310,6 +318,7 @@ public class GUIOrdersController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
                 Parent root = loader.load();
                 utils.changeView(btnRegisterOrder, root);
+                price = 0;
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -25,7 +25,7 @@ public class MechanicData {
 			
 			for(Mechanic mechanicTemp : mechanics) {
 				
-				if(mechanicTemp.getId().equals(mechanic.getId()))
+				if(mechanicTemp.getId().equals(mechanic.getId())) {
 					
 					mechanicTemp.setEmail(mechanic.getEmail());
 					mechanicTemp.setFullName(mechanic.getFullName());
@@ -34,6 +34,7 @@ public class MechanicData {
 					
 					jsonUtils.saveAll(mechanics);
 					return;
+				}
 			}
 		} catch (Exception e) {
 			

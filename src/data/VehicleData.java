@@ -9,22 +9,31 @@ import domain.Vehicle;
 
 public class VehicleData {
 	
-	public static void saveVehicleIntoClient(Vehicle vehicle) {
-		try {
-			List<Client> clients = ClientData.getList();
-			
-			Client ultimo = clients.getLast();
-			
-			ultimo.addVehicle(vehicle);
-			
-			ClientData.editClient(ultimo);
-			
-			LogicAlert.alertMessage("Vehiculo Agregado a cliente exitosamente");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Vehicle.saveVehicleIntoClient");
-		}
+	public static void saveVehicleIntoClient(Vehicle vehicle, String clientId) {
+	    try {
+	        List<Client> clients = ClientData.getList();
+	        
+	        Client clienteEncontrado = null;
+	        for (Client client : clients) {
+	            if (client.getId().equals(clientId)) {
+	                clienteEncontrado = client;
+	                break;
+	            }
+	        }
+	        
+	        if (clienteEncontrado == null) {
+	            System.out.println("Cliente no encontrado con ID: " + clientId);
+	            return;
+	        }
+	        
+	        clienteEncontrado.addVehicle(vehicle);
+	        
+	        ClientData.editClient(clienteEncontrado);
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Vehicle.saveVehicleIntoClient");
+	    }
 	}
 	
 	public static void editVehicle(Vehicle vehicle) {

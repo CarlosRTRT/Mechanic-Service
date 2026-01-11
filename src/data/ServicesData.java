@@ -28,7 +28,6 @@ public class ServicesData {
 	    if (!file.exists()) {
 	        try {
 	            file.createNewFile();
-	            // Escribir un array vacío
 	            new ObjectMapper().writeValue(file, new ArrayList<Services>());
 	        } catch (IOException e) {
 	            e.printStackTrace();

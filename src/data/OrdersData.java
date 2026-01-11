@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import business.LogicAlert;
@@ -21,15 +22,13 @@ public class OrdersData {
 			
 			ClientData.editClient(last);
 			
-			LogicAlert.alertMessage("Orden Agregada a vehiculo exitosamente");
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Orders.saveOrderIntoVehicle");
 		}
 	}
 	
-	public static void editOrder(Orders order) {
+	public static void editOrder(Orders order, int cost) {
 		List<Client> clients = ClientData.getList();
 		
 		for(Client client: clients) {
@@ -40,7 +39,8 @@ public class OrdersData {
 						tempOrder.setMechanic(order.getMechanic());
 						tempOrder.setObservations(order.getObservations());
 						tempOrder.setOrderState(order.getOrderState());
-						tempOrder.setTotalPrice(order.getTotalPrice());
+						tempOrder.setTotalPrice(order.getTotalPrice() - cost);
+						tempOrder.setServices(order.getServices());
 						
 						ClientData.editClient(client);
 						return;
@@ -67,5 +67,37 @@ public class OrdersData {
 
 			}
 		}
+	}
+	
+	public static void addAnotherOrder(Orders order, Vehicle vehicle) {
+		
+		ArrayList<Vehicle> vehicles = VehicleData.getList();
+		
+		for(Vehicle tempVehicle : vehicles) {
+				if(tempVehicle.getLicensePlate().equals(vehicle.getLicensePlate())) {
+		            if(tempVehicle.getOrder() == null) {
+		                tempVehicle.setOrder(new ArrayList<>());
+		            }
+					tempVehicle.addOrder(order);
+					VehicleData.editVehicle(tempVehicle);
+					return;
+				}
+		}
+	}
+	
+	public static List<Orders> getList() {
+	    var allOrders = new ArrayList<Orders>();
+	    var clients = ClientData.getList();
+	    
+	    for (Client client : clients) {
+	        for (Vehicle vehicle : client.getVehicles()) {
+	            ArrayList<Orders> orders = (ArrayList<Orders>) vehicle.getOrder();
+	            if (orders != null) {
+	                allOrders.addAll(orders);
+	            }
+	        }
+	    }
+	    
+	    return allOrders;
 	}
 }

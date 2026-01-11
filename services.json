@@ -1,30 +1,23 @@
 [
-  {
-    "serviceCode": 1001,
-    "serviceName": "Cambio de aceite y filtro",
-    "description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
-    "baseCost": 850,
-    "estimatedTime": 1
-  },
-  {
-    "serviceCode": 1002,
-    "serviceName": "Alineación y balanceo",
-    "description": "Alineación computarizada de 4 ruedas + balanceo de llantas",
-    "baseCost": 950,
-    "estimatedTime": 2
-  },
-  {
-    "serviceCode": 1003,
-    "serviceName": "Diagnóstico electrónico completo",
-    "description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
-    "baseCost": 680,
-    "estimatedTime": 1
-  },
-  {
-    "serviceCode": 1004,
-    "serviceName": "Cambio de balatas delanteras",
-    "description": "Balatas delanteras de calidad + revisión de discos + lubricación",
-    "baseCost": 2450,
-    "estimatedTime": 3
-  }
+	{
+		"serviceCode": 1001,
+		"serviceName": "Cambio de aceite y filtro",
+		"description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
+		"baseCost": 850,
+		"estimatedTime": 1
+	},
+	{
+		"serviceCode": 1002,
+		"serviceName": "Alineación y balanceo",
+		"description": "Alineación computarizada de 4 ruedas + balanceo de llantas",
+		"baseCost": 950,
+		"estimatedTime": 2
+	},
+	{
+		"serviceCode": 1003,
+		"serviceName": "Diagnóstico electrónico completo",
+		"description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
+		"baseCost": 680,
+		"estimatedTime": 1
+	}
 ]

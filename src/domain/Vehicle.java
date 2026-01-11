@@ -91,4 +91,11 @@ public class Vehicle {
 		this.order = order;
 	}
 	
+	public void addOrder(Orders order) {
+	    if (this.order == null) {
+	        this.order = new ArrayList<>();
+	    }
+		this.order.add(order);
+	}
+	
 }
