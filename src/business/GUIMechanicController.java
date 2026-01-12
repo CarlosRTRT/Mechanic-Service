@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.Random;
 
 import data.MechanicData;
 import domain.Mechanic;
@@ -42,7 +43,12 @@ public class GUIMechanicController {
 	// Event Listener on Button[#btnAddMechanic].onAction
 	@FXML
 	public void addMechanic(ActionEvent event) {
-		String id = String.valueOf(System.currentTimeMillis()); // Genera un ID único
+		if(validForm())return;//valida el formulario
+		
+		 Random random = new Random();
+		 
+		int numero = random.nextInt(10000);
+		String id = String.valueOf("MEC-"+numero); // Genera un ID único
 		String fullName = tfFullName.getText();
 		int phoneNumber = Integer.parseInt(tfPhoneNumber.getText());
 		String email = tfEmail.getText();
@@ -82,5 +88,19 @@ public class GUIMechanicController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean validForm() {
+		if(tfFullName.getText().isBlank() || tfPhoneNumber.getText().isBlank() || tfEmail.getText().isBlank()) {//valida que no queden datos vacios
+			LogicAlert.alertMessage("No dejar datos vacios");
+			return true;
+		}else if(!tfPhoneNumber.getText().matches("\\d+")) {//valida que el numero de telefono sean solo numeros
+			LogicAlert.alertMessage("El numero de telefono debe ser solo numeros");
+			return true;
+		}else if(cbSpecialty.getSelectionModel().isEmpty()) {//valida que se seleccione una especialidad
+			LogicAlert.alertMessage("Debe seleccionar una especialidad");
+			return true;
+		}
+		return false;
 	}
 }

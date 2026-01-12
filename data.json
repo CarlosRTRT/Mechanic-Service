@@ -6,64 +6,6 @@
 		"email": "ana.lopez@email.com",
 		"direction": "Cartago, Centro, Barrio Los Ángeles",
 		"vehicles": [
-			{
-				"licensePlate": "GHI-321",
-				"brand": "Tesla",
-				"model": "Model 3",
-				"year": 2023,
-				"fuelType": "Eléctrico",
-				"owner": "Ana López Vargas",
-				"order": [
-					{
-						"orderNumber": 845,
-						"creationDate": [
-							2026,
-							1,
-							2
-						],
-						"orderState": "Registrada",
-						"mechanic": {
-							"id": "MEC-003",
-							"fullName": "Luis Fernando Díaz Vargas",
-							"specialty": "electricidad y electrónica automotriz",
-							"phoneNumber": 55281394,
-							"email": "luis.diaz.electrico@tallerpro.mx"
-						},
-						"services": [
-							{
-								"serviceCode": 1001,
-								"serviceName": "Cambio de aceite y filtro",
-								"description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
-								"baseCost": 850,
-								"estimatedTime": 1
-							},
-							{
-								"serviceCode": 1002,
-								"serviceName": "Alineación y balanceo",
-								"description": "Alineación computarizada de 4 ruedas + balanceo de llantas",
-								"baseCost": 950,
-								"estimatedTime": 2
-							},
-							{
-								"serviceCode": 1003,
-								"serviceName": "Diagnóstico electrónico completo",
-								"description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
-								"baseCost": 680,
-								"estimatedTime": 1
-							},
-							{
-								"serviceCode": 1004,
-								"serviceName": "Cambio de balatas delanteras",
-								"description": "Balatas delanteras de calidad + revisión de discos + lubricación",
-								"baseCost": 2450,
-								"estimatedTime": 3
-							}
-						],
-						"observations": "sdf",
-						"totalPrice": 4930
-					}
-				]
-			}
 		]
 	},
 	{
@@ -99,7 +41,8 @@
 				"year": 2021,
 				"fuelType": "Híbrido",
 				"owner": "Laura Fernández Castro",
-				"order": null
+				"order": [
+				]
 			}
 		]
 	},
@@ -112,12 +55,119 @@
 		"vehicles": [
 			{
 				"licensePlate": "PQR-147",
-				"brand": "Chevrolet",
+				"brand": "Toyota",
 				"model": "Spark",
 				"year": 2018,
 				"fuelType": "Gasolina",
 				"owner": "Roberto Sánchez Mora",
-				"order": null
+				"order": [
+				]
+			}
+		]
+	},
+	{
+		"id": "502340986",
+		"fullName": "Juana",
+		"phoneNumber": 123456,
+		"email": "frfyrgyrgf",
+		"direction": "kfrifirjf",
+		"vehicles": [
+		]
+	},
+	{
+		"id": "123456789",
+		"fullName": "Carlos Rodriguez",
+		"phoneNumber": 1234,
+		"email": "carlos@.com",
+		"direction": "ghyuj",
+		"vehicles": [
+			{
+				"licensePlate": "Carro1",
+				"brand": "Toyota",
+				"model": "Supra",
+				"year": 2025,
+				"fuelType": "Gasolina",
+				"owner": "Carlos",
+				"order": [
+					{
+						"orderNumber": 19,
+						"creationDate": [
+							2026,
+							1,
+							7
+						],
+						"orderState": "En proceso",
+						"mechanic": {
+							"id": "MEC-003",
+							"fullName": "Luis Fernando Díaz Vargas",
+							"specialty": "electricidad y electrónica automotriz",
+							"phoneNumber": 55281394,
+							"email": "luis.diaz.electrico@tallerpro.mx"
+						},
+						"services": [
+							{
+								"serviceCode": 1001,
+								"serviceName": "Cambio de aceite y filtro",
+								"description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
+								"baseCost": 850,
+								"estimatedTime": 1
+							},
+							{
+								"serviceCode": 1003,
+								"serviceName": "Diagnóstico electrónico completo",
+								"description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
+								"baseCost": 680,
+								"estimatedTime": 1
+							}
+						],
+						"observations": "ayer",
+						"totalPrice": 1530
+					}
+				]
+			},
+			{
+				"licensePlate": "carro2",
+				"brand": "honda",
+				"model": "civic",
+				"year": 2025,
+				"fuelType": "Gasolina",
+				"owner": "Carlos",
+				"order": [
+					{
+						"orderNumber": 734,
+						"creationDate": [
+							2026,
+							1,
+							4
+						],
+						"orderState": "En proceso",
+						"mechanic": {
+							"id": "MEC-001",
+							"fullName": "Carlos Alberto Ramírez López",
+							"specialty": "mecánica general",
+							"phoneNumber": 55412877,
+							"email": "carlos.ramirez@tallerpro.mx"
+						},
+						"services": [
+							{
+								"serviceCode": 1001,
+								"serviceName": "Cambio de aceite y filtro",
+								"description": "Cambio de aceite de motor + filtro de aceite + revisión de niveles",
+								"baseCost": 850,
+								"estimatedTime": 1
+							},
+							{
+								"serviceCode": 1003,
+								"serviceName": "Diagnóstico electrónico completo",
+								"description": "Escaneo completo con equipo profesional + lectura y borrado de códigos",
+								"baseCost": 680,
+								"estimatedTime": 1
+							}
+						],
+						"observations": "hola",
+						"totalPrice": 1530
+					}
+				]
 			}
 		]
 	}

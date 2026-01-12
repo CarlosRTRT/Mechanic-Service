@@ -98,6 +98,7 @@ public class GUIAdminServiceController {
 	// Event Listener on Button[#btnEdit].onAction
 	@FXML
 	public void editService(ActionEvent event) {
+		if(selectService()) return;//valida que se haya seleccionado un servicio en la lista para editarlo
 		Services selectedService = (Services) tvServices.getSelectionModel().getSelectedItem();
 		
 		if (selectedService != null) {
@@ -107,19 +108,28 @@ public class GUIAdminServiceController {
 			selectedService.setEstimatedTime(Integer.parseInt(tfEstimatedTime.getText()));
 			
 			ServicesData.editService(selectedService);
+			LogicAlert.alertMessage("Servicio Modificado Exitosamente");
 			
 			services = ServicesData.getList();
 			setDataTable();
+			tfServiceCode.clear();
+			tfServiceName.clear();
+			tfDescription.clear();
+			tfBaseCost.clear();
+			tfEstimatedTime.clear();
 		}
 	}
 	
 	// Event Listener on Button[#btnDelete].onAction
 	@FXML
 	public void deleteService(ActionEvent event) {
+		
+		if(selectService()) return;//valida que se haya seleccionado un servicio en la lista para eliminarlo
 		Services selectedService = (Services) tvServices.getSelectionModel().getSelectedItem();
 		
 		if (selectedService != null) {
 			ServicesData.deleteService(selectedService);
+			LogicAlert.alertMessage("Servicio Eliminado Exitosamente");
 
 			services = ServicesData.getList();
 			setDataTable();
@@ -142,5 +152,13 @@ public class GUIAdminServiceController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean selectService() {
+		if(tvServices.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un Servicio en la Lista");
+			return true;
+		}
+		return false;
 	}
 }

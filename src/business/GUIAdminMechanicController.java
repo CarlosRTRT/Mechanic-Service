@@ -102,6 +102,7 @@ public class GUIAdminMechanicController {
 	// Event Listener on Button[#btnEdit].onAction
 	@FXML
 	public void editMechanic(ActionEvent event) {
+		if(selectMechanic()) return;//valida que se haya seleccionado un mecanico en el table view al tocar el boton de editar
 		Mechanic selectedMechanic = (Mechanic) tvMechanics.getSelectionModel().getSelectedItem();
 		
 		if (selectedMechanic != null) {
@@ -114,6 +115,11 @@ public class GUIAdminMechanicController {
 	
 			mechanics = MechanicData.getList();
 			setDataTable();
+			tfId.clear();
+			tfFullName.clear();
+			cbSpeciality.setValue(null);
+			tfNumPhone.clear();
+			tfEmail.clear();
 			LogicAlert.alertMessage("Mecanico editado exitosamente");
 		}
 	}
@@ -121,10 +127,12 @@ public class GUIAdminMechanicController {
 	// Event Listener on Button[#btnDelete].onAction
 	@FXML
 	public void deleteMechanic(ActionEvent event) {
+		if(selectMechanic()) return;//valida que se haya seleccionado un mecanico en el table view al tocar el boton de eliminar
 		Mechanic selectedMechanic = (Mechanic) tvMechanics.getSelectionModel().getSelectedItem();
 		
 		if (selectedMechanic != null) {
 			MechanicData.deleteService(selectedMechanic);
+			MechanicData.deleteMechanicFromClients(selectedMechanic);
 
 			mechanics = MechanicData.getList();
 			setDataTable();
@@ -148,5 +156,13 @@ public class GUIAdminMechanicController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean selectMechanic() {
+		if(tvMechanics.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un Mecanico en la Lista");
+			return true;
+		}
+		return false;
 	}
 }

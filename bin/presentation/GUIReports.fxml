@@ -7,14 +7,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="business.GUIReportsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIReportsController">
    <children>
-      <TextArea fx:id="taResults" layoutX="37.0" layoutY="79.0" prefHeight="240.0" prefWidth="525.0" />
+      <TextArea fx:id="taResults" editable="false" layoutX="37.0" layoutY="79.0" prefHeight="240.0" prefWidth="525.0" />
       <Label layoutX="37.0" layoutY="62.0" text="RESULTADOS DE LA BUSQUEDA:" />
-      <ComboBox fx:id="cbData" layoutX="113.0" layoutY="344.0" prefWidth="150.0" promptText="Seleccione un Dato" />
-      <Label layoutX="113.0" layoutY="327.0" text="FILTRAR POR:" />
-      <TextField fx:id="tfData" layoutX="274.0" layoutY="344.0" />
-      <Button fx:id="btnSearch" layoutX="429.0" layoutY="345.0" mnemonicParsing="false" onAction="#search" text="Buscar" />
+      <ComboBox fx:id="cbData" layoutX="39.0" layoutY="342.0" prefWidth="150.0" promptText="Seleccione un Dato" />
+      <Label layoutX="39.0" layoutY="325.0" text="FILTRAR POR:" />
+      <TextField fx:id="tfData" layoutX="200.0" layoutY="342.0" />
+      <Button fx:id="btnSearch" layoutX="355.0" layoutY="343.0" mnemonicParsing="false" onAction="#search" text="Buscar" />
       <Label layoutX="272.0" layoutY="31.0" text="REPORTES" underline="true" />
+      <Button fx:id="btnReturn" layoutX="416.0" layoutY="343.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menu Principal" />
    </children>
 </AnchorPane>

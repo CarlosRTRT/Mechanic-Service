@@ -73,6 +73,8 @@ public class GUIAdminOrderController {
 	private ArrayList<Services> services = ServicesData.getList();
 	private ArrayList<Services> servicesOfOrderSelected;
 	ArrayList<Services> servicesOnTable;
+	Orders orderSelectedOnTf;
+	private Orders originalOrderSnapshot;
 
     private boolean isProcessingServiceSelection = false;
 	private int price;
@@ -206,22 +208,37 @@ public class GUIAdminOrderController {
 	        Orders selectedOrder = (Orders) tvOrders.getSelectionModel().getSelectedItem();
 	        
 	        if (selectedOrder != null) {
+
+	            // campos
 	            tfNumOfOrder.setText(String.valueOf(selectedOrder.getOrderNumber()));
 	            dpCreationDate.setValue(selectedOrder.getCreationDate());
 	            cbMechanicSelected.setValue(selectedOrder.getMechanic());
 	            cbStateOrder.setValue(selectedOrder.getOrderState());
 	            tfOservation.setText(selectedOrder.getObservations());
 	            tfTotalPrice.setText(String.valueOf(selectedOrder.getTotalPrice()));
-	            
-	            
-	            servicesOfOrderSelected = (ArrayList<Services>) selectedOrder.getServices();
-	            ObservableList<Services> observable = FXCollections.observableArrayList(servicesOfOrderSelected);
-	            tvServices.setItems(observable);
-	            servicesOnTable = new ArrayList<>(servicesOfOrderSelected); // AGREGAR ESTA LÍNEA
+
+	            // servicios
+	            servicesOfOrderSelected = new ArrayList<>(selectedOrder.getServices());
+	            servicesOnTable = new ArrayList<>(servicesOfOrderSelected);
+
+	            tvServices.setItems(FXCollections.observableArrayList(servicesOnTable));
 	            price = selectedOrder.getTotalPrice();
-	            
-	    		fillCbServices();
+
+	            orderSelectedOnTf = selectedOrder;
+
+	            originalOrderSnapshot = new Orders(
+	            	    selectedOrder.getOrderNumber(),
+	            	    selectedOrder.getCreationDate(),
+	            	    selectedOrder.getOrderState(),
+	            	    selectedOrder.getMechanic(),
+	            	    new ArrayList<>(selectedOrder.getServices()),
+	            	    selectedOrder.getObservations(),
+	            	    selectedOrder.getTotalPrice()
+	            	);
+	        
+	            fillCbServices();
 	        }
+
 	    });
 	}
 	
@@ -262,36 +279,28 @@ public class GUIAdminOrderController {
 	// Event Listener on Button[#btnEdit].onAction
 	@FXML
 	public void editOrder(ActionEvent event) {
+	    if(selectOrder()) return;
 	    Orders selectedOrder = (Orders) tvOrders.getSelectionModel().getSelectedItem();
 	    
 	    if (selectedOrder != null) {
+	        // Validar que haya cambios antes de editar
+	        if(!hasChanges()) {
+	            LogicAlert.alertMessage("No se han realizado cambios en la orden");
+	            return;
+	        }
+	        
 	        selectedOrder.setCreationDate(dpCreationDate.getValue());
 	        selectedOrder.setMechanic((cbMechanicSelected.getValue()));
 	        selectedOrder.setOrderState(cbStateOrder.getValue());
 	        selectedOrder.setObservations(tfOservation.getText());
 	        selectedOrder.setTotalPrice(Integer.parseInt(tfTotalPrice.getText()));
 	        selectedOrder.setServices(servicesOnTable);
-	        
+	       
 	        OrdersData.editOrder(selectedOrder, 0);
 	        
-	        // Refrescar tabla
 	        orders = (ArrayList<Orders>) OrdersData.getList();
-	        setDataTable();
-	    }
-	}
-	// Event Listener on Button[#btnDelete].onAction
-	@FXML
-	public void deleteOrder(ActionEvent event) {
-	    Orders selectedOrder = (Orders) tvOrders.getSelectionModel().getSelectedItem();
-	    
-	    if (selectedOrder != null) {
-	        OrdersData.deleteOrder(selectedOrder);
+	        LogicAlert.alertMessage("Orden Modificada Exitosamente");
 	        
-	        // Refrescar tabla
-	        orders = (ArrayList<Orders>) OrdersData.getList();
-	        setDataTable();
-	        
-	        // Limpiar campos
 	        tfNumOfOrder.clear();
 	        dpCreationDate.setValue(null);
 	        cbMechanicSelected.setValue(null);
@@ -299,8 +308,95 @@ public class GUIAdminOrderController {
 	        tfOservation.clear();
 	        tfTotalPrice.clear();
 	        
-	        // Limpiar tabla de servicios
+	        tvServices.setItems(FXCollections.observableArrayList());
+	        
+	        setDataTable();
+	        
+	    }
+	}
+	// Event Listener on Button[#btnDelete].onAction
+	@FXML
+	public void deleteOrder(ActionEvent event) {
+		if(selectOrder()) return;//valida que se haya escogido una orden en la lista para borrarla
+	    Orders selectedOrder = (Orders) tvOrders.getSelectionModel().getSelectedItem();
+	    boolean isInProcess = selectedOrder.getOrderState().equalsIgnoreCase("En proceso");//si la orden esta En proceso devuelve true
+	    
+	    if(isInProcess) {//no deja eliminar ordenes En proceso
+	    	LogicAlert.alertMessage("No se Pueden Eliminar Ordenes en Proceso");
+	    	return;
+	    }
+	    
+	    if (selectedOrder != null) {
+	        OrdersData.deleteOrder(selectedOrder);
+
+	        orders = (ArrayList<Orders>) OrdersData.getList();
+	        LogicAlert.alertMessage("Orden Eliminada Exitosamente");
+	        }
+	    	
+	        setDataTable();
+	        
+	        tfNumOfOrder.clear();
+	        dpCreationDate.setValue(null);
+	        cbMechanicSelected.setValue(null);
+	        cbStateOrder.setValue(null);
+	        tfOservation.clear();
+	        tfTotalPrice.clear();
+
 	        tvServices.setItems(FXCollections.observableArrayList());
 	    }
+	
+	private boolean selectOrder() {
+		if(tvOrders.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar una Orden en la Lista");
+			return true;
+		}
+		return false;
+	}
+	private boolean hasChanges() {
+	    if (originalOrderSnapshot == null) {
+	        return false;
+	    }
+
+	    if (!dpCreationDate.getValue().equals(originalOrderSnapshot.getCreationDate())) {
+	        return true;
+	    }
+
+	    if (cbMechanicSelected.getValue() == null || 
+	        !cbMechanicSelected.getValue().equals(originalOrderSnapshot.getMechanic())) {
+	        return true;
+	    }
+
+	    if (!cbStateOrder.getValue().equals(originalOrderSnapshot.getOrderState())) {
+	        return true;
+	    }
+
+	    String currentObservations = tfOservation.getText() == null ? "" : tfOservation.getText();
+	    String originalObservations = originalOrderSnapshot.getObservations() == null ? "" : originalOrderSnapshot.getObservations();
+	    if (!currentObservations.equals(originalObservations)) {
+	        return true;
+	    }
+	    
+	    if (price != originalOrderSnapshot.getTotalPrice()) {
+	        return true;
+	    }
+	    
+	    if (servicesOnTable.size() != originalOrderSnapshot.getServices().size()) {
+	        return true;
+	    }
+	    
+	    for (Services currentService : servicesOnTable) {
+	        boolean found = false;
+	        for (Services originalService : originalOrderSnapshot.getServices()) {
+	            if (currentService.getServiceCode() == originalService.getServiceCode()) {
+	                found = true;
+	                break;
+	            }
+	        }
+	        if (!found) {
+	            return true;
+	        }
+	    }
+	    
+	    return false;
 	}
 }

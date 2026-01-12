@@ -17,14 +17,12 @@ public class Orders {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Orders(int orderNumber, LocalDate creationDate, String orderState,
-			Mechanic mechanic, Services services, String observations, int totalPrice) {
-		super();
+	public Orders(int orderNumber,LocalDate creationDate,String orderState,Mechanic mechanic,ArrayList<Services> services,String observations,int totalPrice) {
 		this.orderNumber = orderNumber;
 		this.creationDate = creationDate;
 		this.orderState = orderState;
 		this.mechanic = mechanic;
-		this.services = new ArrayList<>();
+		this.services = (services != null) ? new ArrayList<>(services): new ArrayList<>();
 		this.observations = observations;
 		this.totalPrice = totalPrice;
 	}

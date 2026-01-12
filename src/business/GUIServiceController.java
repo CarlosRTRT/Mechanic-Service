@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import data.ServicesData;
 import domain.Services;
@@ -31,6 +32,7 @@ public class GUIServiceController {
 	private Button btnReturnMenu;
 	
 	private MyUtils utils;
+	private ArrayList<Services> services = ServicesData.getList();
 	
 	@FXML
 	private void initialize() {
@@ -39,7 +41,8 @@ public class GUIServiceController {
 	
 	// Event Listener on Button[#btnAddService].onAction
 	@FXML
-	public void addService(ActionEvent event) {		
+	public void addService(ActionEvent event) {	
+		if(validForm()) return;
 		Services service = new Services();
 		
 		service.setServiceCode(Integer.parseInt(tfServiceCode.getText()));
@@ -48,8 +51,10 @@ public class GUIServiceController {
 		service.setBaseCost(Integer.parseInt(tfBaseCost.getText()));
 		service.setEstimatedTime(Integer.parseInt(tfEstimatedTime.getText()));
 		
-
-		
+		if(existsService(service.getServiceCode())) {
+			LogicAlert.alertMessage("El codigo de servicio ya existe");
+			return;
+		}
 		ServicesData.saveService(service);
 
 		tfServiceCode.clear();
@@ -83,5 +88,32 @@ public class GUIServiceController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean validForm() {
+		if(tfServiceName.getText().isBlank() || tfDescription.getText().isBlank()) {//valida que no queden datos vacios
+			LogicAlert.alertMessage("No dejar datos vacios");
+			return true;
+		}else if(!tfServiceCode.getText().matches("\\d{4}")) {
+			//valida que el codigo sean solo 4 numeros
+			LogicAlert.alertMessage("El codigo deben ser 4 digitos numericos");
+			return true;
+		}else if(!tfBaseCost.getText().matches("\\d+")) {//valida que el costo base sean solo numeros
+			LogicAlert.alertMessage("El costo base deben ser solo numeros");
+			return true;
+		}else if(!tfEstimatedTime.getText().matches("\\d+")) {//valida que el tiempo estimado sean solo numeros
+			LogicAlert.alertMessage("El tiempo estimado deben ser solo numeros");
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean existsService(int codeSearch) {
+		for(Services serviceTemp : services) {
+			if(serviceTemp.getServiceCode() == codeSearch) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

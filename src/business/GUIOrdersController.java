@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -377,6 +378,9 @@ public class GUIOrdersController {
 			return true;
 		}else if(tvServices.getItems().isEmpty()) {
 			LogicAlert.alertMessage("Debe elegirse al menos un servicio");
+			return true;
+		}else if(dpCreationDate.getValue().isAfter(LocalDate.now())) {
+			LogicAlert.alertMessage("La fecha no puede ser mayor al dia actual");
 			return true;
 		}
 		return false;

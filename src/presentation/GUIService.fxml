@@ -8,7 +8,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIServiceController">
    <children>
       <Label layoutX="42.0" layoutY="112.0" text="CODIGO" />
-      <TextField fx:id="tfServiceCode" layoutX="42.0" layoutY="129.0" promptText="Ej. Servicio12" />
+      <TextField fx:id="tfServiceCode" layoutX="42.0" layoutY="129.0" promptText="Ej. 1234" />
       <Label layoutX="209.0" layoutY="112.0" text="NOMBRE" />
       <TextField fx:id="tfServiceName" layoutX="209.0" layoutY="129.0" promptText="Ingrese un Nombre" />
       <Label layoutX="41.0" layoutY="167.0" text="DESCRIPCION" />

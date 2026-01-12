@@ -3,7 +3,10 @@ package data;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import domain.Client;
 import domain.Mechanic;
+import domain.Orders;
+import domain.Vehicle;
 
 public class MechanicData {
 	private static String filePath = "mechanics.json";
@@ -51,6 +54,21 @@ public class MechanicData {
 				mechanics.remove(i);
 				jsonUtils.saveAll(mechanics);
 				return;
+			}
+		}
+	}
+	
+	public static void deleteMechanicFromClients(Mechanic mechanic) {
+		ArrayList<Client> clients = ClientData.getList();
+		
+		for(Client client : clients) {
+			for(Vehicle vehicle: client.getVehicles()) {
+				for(Orders order : vehicle.getOrder()) {
+					if(order.getMechanic().getId().equals(mechanic.getId())) {
+						order.setMechanic(null);
+						OrdersData.editOrder(order, 0);
+					}
+				}
 			}
 		}
 	}

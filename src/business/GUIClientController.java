@@ -8,8 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import data.ClientData;
+import data.ServicesData;
 import domain.Client;
+import domain.Services;
 import javafx.event.ActionEvent;
 
 public class GUIClientController {
@@ -30,6 +34,7 @@ public class GUIClientController {
 	@FXML
 	private TextField tfDirection;
 	private MyUtils utils;
+	private ArrayList<Client> clients = ClientData.getList();
 	
 	@FXML
 	private void initialize() {
@@ -49,6 +54,10 @@ public class GUIClientController {
 		client.setPhoneNumber(Integer.parseInt(tfPhoneNumber.getText()));
 		
 		int numbOfVehicles = Integer.parseInt(tfNumOfVehicles.getText());
+		if(existsClient(client.getId())) {
+			LogicAlert.alertMessage("La identificacion ya existe");
+			return;
+		}
 		
 		try {
 		
@@ -99,6 +108,15 @@ public class GUIClientController {
 		}else if(!tfNumOfVehicles.getText().matches("\\d+")) {//valida que la cantidad de vehiculos debe ser solo numeros
 			LogicAlert.alertMessage("Cantidad de vehiculos debe ser un numero");
 			return true;
+		}
+		return false;
+	}
+	
+	private boolean existsClient(String idSearch) {
+		for(Client clientTemp : clients) {
+			if(clientTemp.getId().equalsIgnoreCase(idSearch)) {
+				return true;
+			}
 		}
 		return false;
 	}

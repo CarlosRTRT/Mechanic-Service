@@ -10,8 +10,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import data.ClientData;
+import data.VehicleData;
 import domain.Client;
 import domain.Vehicle;
 import javafx.event.ActionEvent;
@@ -43,6 +46,7 @@ public class GUIVehicleRegistrationController implements Initializable {
 	
 	private Client client;
 	private int numbOfVehicles;
+	private ArrayList<Vehicle> vehicles = VehicleData.getList();
 
 	// Event Listener on Button[#btnRegister].onAction
 	@FXML
@@ -106,6 +110,10 @@ public class GUIVehicleRegistrationController implements Initializable {
 	    vehicle.setModel(tfModel.getText());
 	    vehicle.setOwner(tfOwner.getText());
 	    vehicle.setYear(yearSelected);
+	    if(existsVehicle(vehicle.getLicensePlate())) {
+			LogicAlert.alertMessage("La Placa ya existe");
+			return;
+		}
 		
 		
 		try {
@@ -154,6 +162,15 @@ public class GUIVehicleRegistrationController implements Initializable {
 		}else if(cbYear.getSelectionModel().isEmpty()) {
 			LogicAlert.alertMessage("Debe seleccionar un año");
 			return true;
+		}
+		return false;
+	}
+	
+	private boolean existsVehicle(String plateSearch) {
+		for(Vehicle vehicleTemp : vehicles) {
+			if(vehicleTemp.getLicensePlate().equalsIgnoreCase(plateSearch)) {
+				return true;
+			}
 		}
 		return false;
 	}

@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:controller="business.GUIAdminServiceController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIAdminServiceController">
    <children>
       <Label layoutX="97.0" layoutY="63.0" text="CODIGO" />
       <TextField fx:id="tfServiceCode" layoutX="45.0" layoutY="81.0" />
@@ -21,8 +20,8 @@
       <TextField fx:id="tfEstimatedTime" layoutX="310.0" layoutY="138.0" />
       <TableView fx:id="tvServices" layoutX="22.0" layoutY="189.0" prefHeight="200.0" prefWidth="555.0" />
       <Label layoutX="212.0" layoutY="26.0" text="ADMINISTRACION DE SERVICIOS" underline="true" />
-      <Button fx:id="btnEdit" layoutX="102.0" layoutY="402.0" mnemonicParsing="false" onAction="#editService" text="Editar Datos del Cliente" />
-      <Button fx:id="btnDelete" layoutX="246.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteService" text="Eliminar Cliente" />
+      <Button fx:id="btnEdit" layoutX="102.0" layoutY="402.0" mnemonicParsing="false" onAction="#editService" text="Editar Datos del Servicio" />
+      <Button fx:id="btnDelete" layoutX="246.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteService" text="Eliminar Servicio" />
       <Label layoutX="22.0" layoutY="172.0" text="SERVICIOS REGISTRADOS:" />
       <Button fx:id="btnReturn" layoutX="348.0" layoutY="402.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menu Principal" />
    </children>

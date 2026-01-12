@@ -30,23 +30,25 @@ public class OrdersData {
 	
 	public static void editOrder(Orders order, int cost) {
 		List<Client> clients = ClientData.getList();
+		ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
 		
 		for(Client client: clients) {
 			for(Vehicle tempVehicle : client.getVehicles()) {
-				for(Orders tempOrder : tempVehicle.getOrder()) {
-					if(tempOrder.getOrderNumber() == order.getOrderNumber()) {
-						
-						tempOrder.setMechanic(order.getMechanic());
-						tempOrder.setObservations(order.getObservations());
-						tempOrder.setOrderState(order.getOrderState());
-						tempOrder.setTotalPrice(order.getTotalPrice() - cost);
-						tempOrder.setServices(order.getServices());
-						
-						ClientData.editClient(client);
-						return;
-					}
-					
+				vehicles.add(tempVehicle);	
 				}
+			for(Vehicle vehiclesTemp : vehicles)
+			for(Orders tempOrder : vehiclesTemp.getOrder()) {
+				if(tempOrder.getOrderNumber() == order.getOrderNumber()) {
+					
+					tempOrder.setMechanic(order.getMechanic());
+					tempOrder.setObservations(order.getObservations());
+					tempOrder.setOrderState(order.getOrderState());
+					tempOrder.setTotalPrice(order.getTotalPrice() - cost);
+					tempOrder.setServices(order.getServices());
+					
+					ClientData.editClient(client);
+					return;
+					}
 			}
 		}
 	}

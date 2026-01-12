@@ -1,11 +1,13 @@
 package business;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -30,11 +32,16 @@ public class GUIReportsController {
 	private TextField tfData;
 	@FXML
 	private Button btnSearch;
+	@FXML
+	private Button btnReturn;
+	private MyUtils utils;
+	
 	
 	private ArrayList<Client> clients = ClientData.getList();
 
 	@FXML
 	private void initialize() {
+		this.utils = new MyUtils();
 	    String[] reportTypes = {
 	        "Ordenes por vehiculo (placa)",
 	        "Ordenes por mecanico",
@@ -375,5 +382,16 @@ public class GUIReportsController {
 		}
 		
 		taResults.setText(result.toString());
+	}
+	
+	@FXML
+	public void returnMenu(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnSearch, root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
