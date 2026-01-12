@@ -67,7 +67,7 @@ public class GUIAdminClientController {
 			clientSelected = (Client) tvClients.getSelectionModel().getSelectedItem();
 			
 			tfDirection.setText(clientSelected.getDirection());
-			tfEmail.setText(clientSelected.getDirection());
+			tfEmail.setText(clientSelected.getEmail());
 			tfFullName.setText(clientSelected.getFullName());
 			tfId.setText(clientSelected.getId());
 			tfPhoneNumber.setText(String.valueOf(clientSelected.getPhoneNumber()));
