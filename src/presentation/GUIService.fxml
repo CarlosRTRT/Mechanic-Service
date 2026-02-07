@@ -2,24 +2,28 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIServiceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIServiceController">
    <children>
-      <Label layoutX="42.0" layoutY="112.0" text="CODIGO" />
-      <TextField fx:id="tfServiceCode" layoutX="42.0" layoutY="129.0" promptText="Ej. 1234" />
-      <Label layoutX="209.0" layoutY="112.0" text="NOMBRE" />
-      <TextField fx:id="tfServiceName" layoutX="209.0" layoutY="129.0" promptText="Ingrese un Nombre" />
-      <Label layoutX="41.0" layoutY="167.0" text="DESCRIPCION" />
-      <TextField fx:id="tfDescription" layoutX="41.0" layoutY="184.0" promptText="Breve Descripcion del Servicio" />
-      <Label layoutX="209.0" layoutY="167.0" text="COSTO BASE" />
-      <TextField fx:id="tfBaseCost" layoutX="209.0" layoutY="184.0" promptText="Costo del Servivio" />
-      <Label layoutX="139.0" layoutY="218.0" text="TIEMPO ESTIMADO" />
-      <TextField fx:id="tfEstimatedTime" layoutX="116.0" layoutY="236.0" promptText="En Horas Ej. 5" />
-      <Button fx:id="btnAddService" layoutX="42.0" layoutY="268.0" mnemonicParsing="false" onAction="#addService" prefHeight="25.0" prefWidth="149.0" text="Agregar Servicio" />
-      <Button fx:id="btnShowListService" layoutX="209.0" layoutY="268.0" mnemonicParsing="false" onAction="#showListService" prefHeight="25.0" prefWidth="149.0" text="Administrar Servicios" />
-      <Label layoutX="142.0" layoutY="73.0" text="REGISTRO DE SERVICIOS" underline="true" />
-      <Button fx:id="btnReturnMenu" layoutX="125.0" layoutY="301.0" mnemonicParsing="false" onAction="#returnMenu" prefHeight="25.0" prefWidth="149.0" text="Volver al Menu Principal" />
+      <Label layoutX="42.0" layoutY="48.0" text="CODIGO" />
+      <TextField fx:id="tfServiceCode" layoutX="42.0" layoutY="65.0" promptText="Ej. 1234" />
+      <Label layoutX="209.0" layoutY="48.0" text="NOMBRE" />
+      <TextField fx:id="tfServiceName" layoutX="209.0" layoutY="65.0" promptText="Ingrese un Nombre" />
+      <Label layoutX="376.0" layoutY="48.0" text="DESCRIPCION" />
+      <TextField fx:id="tfDescription" layoutX="376.0" layoutY="65.0" promptText="Breve Descripcion del Servicio" />
+      <Label layoutX="165.0" layoutY="98.0" text="COSTO BASE" />
+      <TextField fx:id="tfBaseCost" layoutX="125.0" layoutY="116.0" promptText="Costo del Servivio" />
+      <Label layoutX="313.0" layoutY="98.0" text="TIEMPO ESTIMADO" />
+      <TextField fx:id="tfEstimatedTime" layoutX="290.0" layoutY="116.0" promptText="En Horas Ej. 5" />
+      <Button fx:id="btnAddService" layoutX="19.0" layoutY="148.0" mnemonicParsing="false" onAction="#addService" prefHeight="25.0" prefWidth="149.0" text="Agregar Servicio" />
+      <Button fx:id="btnEditService" layoutX="170.0" layoutY="148.0" mnemonicParsing="false" onAction="#editService" prefHeight="25.0" prefWidth="149.0" text="Editar Servicio" />
+      <Label layoutX="234.0" layoutY="23.0" text="REGISTRO DE SERVICIOS" underline="true" />
+      <Button fx:id="btnReturnMenu" layoutX="430.0" layoutY="148.0" mnemonicParsing="false" onAction="#returnMenu" prefHeight="25.0" prefWidth="149.0" text="Volver al Menu Principal" />
+      <Button fx:id="btnDeleteService" layoutX="323.0" layoutY="148.0" mnemonicParsing="false" onAction="#deleteService" text="Eliminar Servicio" />
+      <TableView fx:id="tvServices" layoutX="19.0" layoutY="198.0" onMouseClicked="#selectService" prefHeight="200.0" prefWidth="562.0" />
+      <Label layoutX="19.0" layoutY="181.0" text="SERVICIOS AGREGADOS:" />
    </children>
 </AnchorPane>

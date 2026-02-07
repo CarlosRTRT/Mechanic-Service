@@ -5,6 +5,7 @@ module Proyecto {
 	requires javafx.graphics;
 	requires javafx.fxml;
 	requires javafx.base;
+	requires java.sql;
 	
 	opens business to javafx.graphics, javafx.fxml;
 	opens domain to com.fasterxml.jackson.databind, javafx.base;

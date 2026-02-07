@@ -1,16 +1,16 @@
 package business;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import data.ServicesData;
 import domain.Services;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MyUtils {
+	private ServicesData serviceData;
 	
 	public void changeView(Button btn, Parent root) {
 		try {
@@ -29,14 +29,13 @@ public class MyUtils {
 			System.out.println("Error"+e.getMessage());
 		}
 	}
-	
+	/*
 	public boolean verifyServices() {
-		ArrayList<Services> services = ServicesData.getList();
-		
+		LinkedList<Services> services = serviceData.getListServices();
 		if(services.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
-
+*/
 }

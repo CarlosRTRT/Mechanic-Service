@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIAdminOrdersController">
+   <children>
+      <Label layoutX="25.0" layoutY="62.0" text="NUMERO DE ORDEN" />
+      <TextField fx:id="tfNumOfOrder" editable="false" layoutX="28.0" layoutY="80.0" />
+      <Label layoutX="191.0" layoutY="63.0" text="ELEGIR FECHA:" />
+      <DatePicker fx:id="dpCreationDate" layoutX="191.0" layoutY="80.0" prefWidth="149.0" />
+      <Label layoutX="352.0" layoutY="63.0" text="ESTADO DE LA ORDEN" />
+      <Label layoutX="513.0" layoutY="63.0" text="ELEGIR MECANICO:" />
+      <ComboBox fx:id="cbMechanics" layoutX="513.0" layoutY="80.0" prefWidth="150.0" />
+      <Label layoutX="27.0" layoutY="291.0" text=" ORDENES DE TRABAJO REGISTRADAS:" />
+      <TableView fx:id="tvOrders" layoutX="27.0" layoutY="308.0" onMouseClicked="#selectOrder" prefHeight="101.0" prefWidth="637.0" />
+      <Label layoutX="30.0" layoutY="112.0" text="SERVICIOS ASIGNADOS:" />
+      <TableView fx:id="tvServices" layoutX="27.0" layoutY="129.0" onMouseClicked="#selectService" prefHeight="101.0" prefWidth="637.0" />
+      <Label layoutX="47.0" layoutY="239.0" text="SERVICIOS" />
+      <ComboBox fx:id="cbServices" layoutX="47.0" layoutY="256.0" onAction="#addService" prefWidth="149.0" promptText="ELIJA SERVICIO(S)" />
+      <Label layoutX="210.0" layoutY="239.0" text="COSTO TOTAL" />
+      <TextField fx:id="tfTotalPrice" editable="false" layoutX="210.0" layoutY="256.0" />
+      <Button fx:id="btnRemoveService" layoutX="371.0" layoutY="256.0" mnemonicParsing="false" onAction="#removeService" text="QUITAR SERVICIO" />
+      <Label layoutX="503.0" layoutY="239.0" text="OBSERVACION" />
+      <TextField fx:id="tfOservation" layoutX="502.0" layoutY="256.0" />
+      <Button fx:id="btnReturn" layoutX="463.0" layoutY="437.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menu Principal" />
+      <Label layoutX="242.0" layoutY="37.0" text="REGISTRO DE ORDENES DE TRABAJO" underline="true" />
+      <ComboBox fx:id="cbStateOrder" layoutX="352.0" layoutY="80.0" prefWidth="150.0" />
+      <Button fx:id="btnEdit" layoutX="86.0" layoutY="437.0" mnemonicParsing="false" onAction="#editOrder" text="Editar Datos de la Orden" />
+      <Button fx:id="btnDelete" layoutX="249.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteOrder" text="Eliminar Orden" />
+      <Button fx:id="btnAddPhotos" layoutX="359.0" layoutY="437.0" mnemonicParsing="false" onAction="#addPhotos" text="Agregar Fotos" />
+      <Label fx:id="lbStateVehicle" layoutX="385.0" layoutY="291.0" text="ESTADO DEL VEHICULO ASOCIADO: ??" />
+   </children>
+</AnchorPane>

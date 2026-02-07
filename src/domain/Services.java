@@ -1,22 +1,26 @@
 package domain;
 
 public class Services {
+	private int id;
 	private int serviceCode; // ES UNICO 
 	private String serviceName;
 	private String description; // (ej: “Cambio de aceite”, “Alineamiento y balanceo”, “Diagnóstico electrónico”).
 	private int baseCost;
 	private int estimatedTime; // EN HORAS
+	private String state;
 	
 	public Services() {
 		
 	}
 	
-	public Services(int serviceCode, String serviceName, String description, int baseCost, int estimatedTime) {
+	public Services(int id, int serviceCode, String serviceName, String description, int baseCost, int estimatedTime) {
+		this.id = id;
 		this.serviceCode = serviceCode;
 		this.serviceName = serviceName;
 		this.description = description;
 		this.baseCost = baseCost;
 		this.estimatedTime = estimatedTime;
+		this.state = "Activo";
 	}
 
 	public int getServiceCode() {
@@ -63,5 +67,20 @@ public class Services {
 	public String toString() {
 		return serviceName;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }

@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle {
+	private int id;
 	private String licensePlate; // UNICO
 	private String brand;
 	private String model;
 	private int year;
 	private String fuelType; //(gasolina, diésel, eléctrico, híbrido)
-	private String owner;
+	private int owner;
+	private String nameClient;
 	private List<Orders> order;	
-	
+	private String state;
 	
 	public Vehicle() {
-		// TODO Auto-generated constructor stub
+		this.order = new ArrayList<Orders>();
 	}
 	
-	public Vehicle(String licensePlate, String brand, String model, int year, String fuelType, String owner) {
+	public Vehicle(int id, String licensePlate, String brand, String model, int year, String fuelType, int owner) {
+		this.id = id;
 		this.licensePlate = licensePlate;
 		this.brand = brand;
 		this.model = model;
@@ -25,9 +28,8 @@ public class Vehicle {
 		this.fuelType = fuelType;
 		this.owner = owner;
 		this.order = new ArrayList<>();
+		this.state = "Activo";
 	}
-
-
 
 	public String getLicensePlate() {
 		return licensePlate;
@@ -69,11 +71,11 @@ public class Vehicle {
 		this.fuelType = fuelType;
 	}
 
-	public String getOwner() {
+	public int getOwner() {
 		return owner;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwner(int owner) {
 		this.owner = owner;
 	}
 
@@ -97,5 +99,28 @@ public class Vehicle {
 	    }
 		this.order.add(order);
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getNameClient() {
+		return nameClient;
+	}
+
+	public void setNameClient(String nameClient) {
+		this.nameClient = nameClient;
+	}
 }

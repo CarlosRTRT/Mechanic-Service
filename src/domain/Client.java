@@ -4,32 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
-	private String id; // ES UNICO
+	private int id;
+	private String idClient; // ES UNICO
 	private String fullName;
 	private int phoneNumber;
 	private String email;
 	private String direction;
 	private List<Vehicle> vehicles;
+	private String state;
 	
-	public Client(String id, String fullName, int phoneNumber, String email, String direction) {
+	public Client(int id, String idClient, String fullName, int phoneNumber, String email, String direction) {
 		this.id = id;
+		this.idClient = idClient;
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.direction = direction;
-		this.vehicles = new ArrayList<>();
+		this.vehicles = new ArrayList<Vehicle>();
+		this.state = "Activo";
 	}
 
 	public Client() {
-		// TODO Auto-generated constructor stub
+		this.vehicles = new ArrayList<Vehicle>();
 	}
 
-	public String getId() {
-		return id;
+	public String getIdClient() {
+		return idClient;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdClient(String idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getFullName() {
@@ -66,9 +70,10 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", fullName=" + fullName + ", phoneNumber=" + phoneNumber + ", email=" + email
-				+ ", direction=" + direction + "]";
+		return "Cedula: "+idClient + " Nombre: " + fullName + " "+state;
 	}
+	
+	
 
 	public List<Vehicle> getVehicles() {
 		return vehicles;
@@ -88,6 +93,20 @@ public class Client {
 	public void deleteVehicle(Vehicle vehicle) {
 		this.vehicles.remove(vehicle);
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }

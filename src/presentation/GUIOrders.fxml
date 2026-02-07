@@ -11,29 +11,30 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIOrdersController">
 
    <children>
-      <Label layoutX="22.0" layoutY="73.0" text="NUMERO DE ORDEN" />
-      <TextField fx:id="tfNumOfOrder" editable="false" layoutX="25.0" layoutY="91.0" />
-      <Label layoutX="188.0" layoutY="74.0" text="ELEGIR FECHA:" />
-      <DatePicker fx:id="dpCreationDate" layoutX="188.0" layoutY="91.0" prefWidth="149.0" />
-      <Label layoutX="349.0" layoutY="74.0" text="ESTADO DE LA ORDEN" />
-      <TextField fx:id="tfOrderState" editable="false" layoutX="349.0" layoutY="91.0" />
-      <Label layoutX="510.0" layoutY="74.0" text="ELEGIR MECANICO:" />
-      <ComboBox fx:id="cbMechanicSelected" layoutX="510.0" layoutY="91.0" prefWidth="150.0" promptText="ELIJA UN MECANICO" />
-      <Label layoutX="25.0" layoutY="125.0" text="VEHICULO A ASOCIAR:" />
+      <Label layoutX="41.0" layoutY="63.0" text="NUMERO DE ORDEN" />
+      <TextField fx:id="tfNumOfOrder" editable="false" layoutX="44.0" layoutY="81.0" />
+      <Label layoutX="207.0" layoutY="64.0" text="ELEGIR FECHA:" />
+      <DatePicker fx:id="dpCreationDate" layoutX="207.0" layoutY="81.0" prefWidth="149.0" />
+      <Label layoutX="368.0" layoutY="64.0" text="ESTADO DE LA ORDEN" />
+      <TextField fx:id="tfOrderState" editable="false" layoutX="368.0" layoutY="81.0" />
+      <Label layoutX="529.0" layoutY="64.0" text="ELEGIR MECANICO:" />
+      <ComboBox fx:id="cbMechanicSelected" layoutX="529.0" layoutY="81.0" prefWidth="150.0" promptText="ELIJA UN MECANICO" />
+      <Label layoutX="39.0" layoutY="115.0" text="VEHICULO A ASOCIAR:" />
 
-      <TableView fx:id="tvVehicle" layoutX="25.0" layoutY="152.0" prefHeight="52.0" prefWidth="644.0" />
-      <Label layoutX="22.0" layoutY="216.0" text="SERVICIOS SELECCIONADOS:" />
-      <TableView fx:id="tvServices" layoutX="25.0" layoutY="249.0" prefHeight="143.0" prefWidth="644.0" />
-      <Label layoutX="25.0" layoutY="403.0" text="SERVICIOS" />
-      <ComboBox fx:id="cbServiceSelected" layoutX="25.0" layoutY="420.0" prefHeight="25.0" prefWidth="171.0" promptText="ELIJA SERVICIO(S)" />
-      <Label layoutX="213.0" layoutY="403.0" text="COSTO TOTAL" />
-      <TextField fx:id="tfTotalPrice" editable="false" layoutX="213.0" layoutY="420.0" />
-      <Button fx:id="btnRemoveService" layoutX="374.0" layoutY="420.0" mnemonicParsing="false" onAction="#removeService" text="QUITAR SERVICIO" />
-      <Label layoutX="25.0" layoutY="457.0" text="OBSERVACION" />
-      <TextField fx:id="tfOservation" layoutX="23.0" layoutY="474.0" prefHeight="35.0" prefWidth="225.0" />
-      <Button fx:id="btnRegisterOrder" layoutX="382.0" layoutY="479.0" mnemonicParsing="false" onAction="#addOrder" text="Registrar Orden de Trabajo" />
-      <Button fx:id="btnCancel" layoutX="551.0" layoutY="479.0" mnemonicParsing="false" onAction="#cancelRegister" text="Cancelar Registro" />
-      <Label layoutX="238.0" layoutY="34.0" text="REGISTRO DE ORDENES DE TRABAJO" underline="true" />
+      <TableView fx:id="tvVehicle" layoutX="38.0" layoutY="132.0" prefHeight="120.0" prefWidth="644.0" />
+      <Label layoutX="39.0" layoutY="257.0" text="SERVICIOS SELECCIONADOS:" />
+      <TableView fx:id="tvServices" layoutX="38.0" layoutY="275.0" prefHeight="120.0" prefWidth="644.0" />
+      <Label layoutX="38.0" layoutY="407.0" text="SERVICIOS" />
+      <ComboBox fx:id="cbServiceSelected" layoutX="38.0" layoutY="424.0" prefHeight="25.0" prefWidth="171.0" promptText="ELIJA SERVICIO(S)" />
+      <Label layoutX="226.0" layoutY="407.0" text="COSTO TOTAL" />
+      <TextField fx:id="tfTotalPrice" editable="false" layoutX="226.0" layoutY="424.0" />
+      <Button fx:id="btnRemoveService" layoutX="387.0" layoutY="424.0" mnemonicParsing="false" onAction="#removeService" text="QUITAR SERVICIO" />
+      <Label layoutX="38.0" layoutY="461.0" text="OBSERVACION" />
+      <TextField fx:id="tfOservation" layoutX="36.0" layoutY="478.0" prefHeight="35.0" prefWidth="225.0" />
+      <Button fx:id="btnRegisterOrder" layoutX="276.0" layoutY="478.0" mnemonicParsing="false" onAction="#addOrder" text="Registrar Orden de Trabajo" />
+      <Button fx:id="btnReturn" layoutX="444.0" layoutY="478.0" mnemonicParsing="false" onAction="#returnMenu" text="Volver al Menú Principal" />
+      <Label layoutX="251.0" layoutY="14.0" text="REGISTRO DE ORDENES DE TRABAJO" underline="true" />
+      <Button fx:id="btnAddPhotos" layoutX="512.0" layoutY="424.0" mnemonicParsing="false" onAction="#addPhotos" text="Agregar Fotos" />
 
    </children>
 </AnchorPane>

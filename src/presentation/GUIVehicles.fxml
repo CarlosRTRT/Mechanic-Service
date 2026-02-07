@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIVehiclesController">
+   <children>
+      <Label layoutX="40.0" layoutY="47.0" text="PLACA" />
+      <TextField fx:id="tfLicensePlate" layoutX="37.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" promptText="Escriba el numero de placa: " />
+      <Label layoutX="400.0" layoutY="47.0" text="MARCA" />
+      <TextField fx:id="tfBrand" layoutX="400.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" promptText="Escriba la marca: " />
+      <Label layoutX="37.0" layoutY="101.0" text="MODELO" />
+      <TextField fx:id="tfModel" layoutX="37.0" layoutY="119.0" prefHeight="25.0" prefWidth="162.0" promptText="Escriba el modelo" />
+      <Label fx:id="lbClient" layoutX="400.0" layoutY="100.0" text="CLIENTE" />
+      <Label layoutX="219.0" layoutY="46.0" text="AÑO" />
+      <Label layoutX="219.0" layoutY="100.0" text="TIPO DE COMBUSTIBLE" />
+      <Button fx:id="btnAddVehicle" layoutX="23.0" layoutY="153.0" mnemonicParsing="false" onAction="#addVehicle" prefHeight="25.0" prefWidth="130.0" text="Agregar Vehiculo" />
+      <ComboBox fx:id="cbFuelType" layoutX="219.0" layoutY="118.0" prefHeight="25.0" prefWidth="162.0" promptText="Seleccione el combustible" />
+      <ComboBox fx:id="cbYear" layoutX="219.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" promptText="Seleccione el año:" />
+      <Button fx:id="btnReturn" layoutX="425.0" layoutY="153.0" mnemonicParsing="false" onAction="#returnMenu" prefHeight="25.0" prefWidth="150.0" text="Volver al Menú Principal" />
+      <Label layoutX="210.0" layoutY="18.0" text="Agregar/Administrar Vehiculos" underline="true" />
+      <ComboBox fx:id="cbClients" layoutX="400.0" layoutY="118.0" prefWidth="162.0" promptText="Seleccionar Cliente:" />
+      <Button fx:id="btnEditVehicle" layoutX="157.0" layoutY="153.0" mnemonicParsing="false" onAction="#editVehicle" prefHeight="25.0" prefWidth="130.0" text="Editar Vehiculo" />
+      <Button fx:id="btnDeleteVehicle" layoutX="291.0" layoutY="153.0" mnemonicParsing="false" onAction="#deleteVehicle" prefHeight="25.0" prefWidth="130.0" text="Eliminar Vehiculo" />
+      <Label layoutX="17.0" layoutY="186.0" text="VEHICULOS AGREGADOS:" />
+      <TableView fx:id="tvVehicles" layoutX="16.0" layoutY="203.0" onMouseClicked="#vehicleSelected" prefHeight="200.0" prefWidth="568.0" />
+   </children>
+</AnchorPane>

@@ -6,13 +6,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIPrincipalController">
    <children>
-      <Label layoutX="153.0" layoutY="56.0" text="MENU PRINCIPAL" underline="true" />
-      <Button fx:id="btnClient" layoutX="75.0" layoutY="91.0" mnemonicParsing="false" onAction="#showGUIClient" prefHeight="30.0" prefWidth="250.0" text="Agregar Cliente" />
-      <Button fx:id="btnVehicleAdministration" layoutX="75.0" layoutY="166.0" mnemonicParsing="false" onAction="#showAdministrationVehicle" prefHeight="30.0" prefWidth="250.0" text="Administracion de Vehiculos" />
-      <Button fx:id="btnMechanic" layoutX="75.0" layoutY="276.0" mnemonicParsing="false" onAction="#showGUIMechanic" prefHeight="30.0" prefWidth="250.0" text="Mecanicos" />
-      <Button fx:id="btnService" layoutX="75.0" layoutY="239.0" mnemonicParsing="false" onAction="#showGUIService" prefHeight="30.0" prefWidth="250.0" text="Servicios" />
-      <Button fx:id="btnOrdersAdministration" layoutX="75.0" layoutY="202.0" mnemonicParsing="false" onAction="#showAdministrationOrder" prefHeight="30.0" prefWidth="250.0" text="Administracion de Ordenes de Trabajo" />
-      <Button fx:id="btnReport" layoutX="75.0" layoutY="314.0" mnemonicParsing="false" onAction="#showGUIReport" prefHeight="30.0" prefWidth="250.0" text="Reportes" />
-      <Button fx:id="btnClientAdmin" layoutX="75.0" layoutY="129.0" mnemonicParsing="false" onAction="#showAdminClient" prefHeight="30.0" prefWidth="250.0" text="Administracion de Clientes" />
+      <Label layoutX="153.0" layoutY="75.0" text="MENU PRINCIPAL" underline="true" />
+      <Button fx:id="btnClient" layoutX="75.0" layoutY="110.0" mnemonicParsing="false" onAction="#showGUIClient" prefHeight="30.0" prefWidth="250.0" text="Agregar/Administrar Clientes" />
+      <Button fx:id="btnOrders" layoutX="75.0" layoutY="185.0" mnemonicParsing="false" onAction="#showGUIOrders" prefHeight="30.0" prefWidth="250.0" text="Agregar Ordenes de Trabajo" />
+      <Button fx:id="btnMechanic" layoutX="75.0" layoutY="296.0" mnemonicParsing="false" onAction="#showGUIMechanic" prefHeight="30.0" prefWidth="250.0" text="Agregar/Administrar Mecanicos" />
+      <Button fx:id="btnService" layoutX="75.0" layoutY="259.0" mnemonicParsing="false" onAction="#showGUIService" prefHeight="30.0" prefWidth="250.0" text="Agregar/Administrar Servicios" />
+      <Button fx:id="btnVehicles" layoutX="75.0" layoutY="148.0" mnemonicParsing="false" onAction="#showGUIVehicles" prefHeight="30.0" prefWidth="250.0" text="Agregar/Administrar Vehiculos" />
+      <Button fx:id="btnAdminOrders" layoutX="75.0" layoutY="221.0" mnemonicParsing="false" onAction="#showGUIAdminOrders" prefHeight="30.0" prefWidth="250.0" text="Administrar Ordenes de Trabajo" />
    </children>
 </AnchorPane>

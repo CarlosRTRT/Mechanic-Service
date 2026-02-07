@@ -7,13 +7,18 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
+import data.ClientData;
+import data.MechanicData;
+import data.OrdersData;
+import data.ServicesData;
+import data.VehicleData;
 import javafx.event.ActionEvent;
 
 public class GUIPrincipalController {
 	@FXML
 	private Button btnClient;
 	@FXML
-	private Button btnVehicleAdministration;
+	private Button btnOrders;
 	@FXML
 	private Button btnMechanic;
 	@FXML
@@ -21,43 +26,48 @@ public class GUIPrincipalController {
 	@FXML
 	private Button btnClientAdmin;
 	@FXML
-	private Button btnOrdersAdministration;
+	private Button btnVehicles;
+	@FXML
+	private Button btnAdminOrders;
 	@FXML
 	private Button btnReport;
 	private MyUtils utils;
+	private MechanicData mechanicData;
+	private ClientData clientData;
+	private VehicleData vehicleData;
+	private OrdersData orderData;
+	private ServicesData serviceData;
+	
 	
 	@FXML
 	private void initialize() {
 		this.utils = new MyUtils();
+		this.mechanicData = new MechanicData();
+		this.serviceData = new ServicesData();
+		this.orderData = new OrdersData();
+		this.clientData = new ClientData();
+		this.vehicleData = new VehicleData();
 	}
 
 	// Event Listener on Button[#btnClient].onAction
 	@FXML
 	public void showGUIClient(ActionEvent event) {
-		
-		if (utils.verifyServices()) {	
-			LogicAlert.alertMessage("Primero debe de agregar un servicio");
-		}else {
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIClient.fxml"));
-				Parent root = loader.load();	
-				utils.changeView(btnClient, root);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIClients.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnClient, root);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
 	}
 	// Event Listener on Button[#btnVehicleAdministration].onAction
 	@FXML
-	public void showAdministrationVehicle(ActionEvent event) {
+	public void showGUIVehicles(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminVehicle.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIVehicles.fxml"));
 			Parent root = loader.load();		
 			utils.changeView(btnClient, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -65,11 +75,10 @@ public class GUIPrincipalController {
 	@FXML
 	public void showGUIMechanic(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIMechanic.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIMechanics.fxml"));
 			Parent root = loader.load();	
 			utils.changeView(btnMechanic, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -81,47 +90,29 @@ public class GUIPrincipalController {
 			Parent root = loader.load();	
 			utils.changeView(btnService, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	// Event Listener on Button[#btnOrdersAdministration].onAction
 	@FXML
-	public void showAdministrationOrder(ActionEvent event) {
+	public void showGUIOrders(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminOrder.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIOrders.fxml"));
 			Parent root = loader.load();	
 			utils.changeView(btnClient, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	// Event Listener on Button[#btnReport].onAction
+	
 	@FXML
-	public void showGUIReport(ActionEvent event) {
+	public void showGUIAdminOrders(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIReports.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminOrders.fxml"));
 			Parent root = loader.load();	
-			utils.changeView(btnReport, root);
+			utils.changeView(btnClient, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-	@FXML
-	public void showAdminClient(ActionEvent event) {
-		if (utils.verifyServices()) {
-			LogicAlert.alertMessage("Primero debe de agregar un servicio");
-		}else {
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIAdminClient.fxml"));
-				Parent root = loader.load();	
-				utils.changeView(btnClientAdmin, root);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 }

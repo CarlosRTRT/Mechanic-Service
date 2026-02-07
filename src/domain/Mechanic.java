@@ -1,30 +1,34 @@
 package domain;
 
 public class Mechanic {
-	private String id; // GENERADO AUTOMATICAMENTE
+	private int id;
+	private String idMechanic; // GENERADO AUTOMATICAMENTE
 	private String fullName;
 	private String specialty; // (mecánica general, frenos, electricidad, motor, etc.).
 	private int phoneNumber;
 	private String email;
+	private String state;
 	
 	public Mechanic() {
 		
 	}
 	
-	public Mechanic(String id, String fullName, String specialty, int phoneNumber, String email) {
+	public Mechanic(int id, String idMechanic, String fullName, String specialty, int phoneNumber, String email) {
 		this.id = id;
+		this.idMechanic = idMechanic;
 		this.fullName = fullName;
 		this.specialty = specialty;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.state = "Activo";
 	}
 
-	public String getId() {
-		return id;
+	public String getIdMechanic() {
+		return idMechanic;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdMechanic(String idMechanic) {
+		this.idMechanic = idMechanic;
 	}
 
 	public String getFullName() {
@@ -63,5 +67,20 @@ public class Mechanic {
 	public String toString() {
 		return  fullName + ", " + specialty;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }

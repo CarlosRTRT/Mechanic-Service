@@ -4,21 +4,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
-
-import data.ClientData;
 import data.MechanicData;
 import data.OrdersData;
 import data.ServicesData;
 import data.VehicleData;
-import domain.Client;
 import domain.Mechanic;
 import domain.Orders;
 import domain.Services;
@@ -58,28 +54,24 @@ public class GUIOrdersController {
 	@FXML
 	private Button btnRegisterOrder;
 	@FXML
-	private Button btnCancel;
+	private Button btnReturn;
+	@FXML
+	private Button btnEditOrder;
+	@FXML
+	private Button btnDeleteOrder;
+	@FXML
+	private Button btnAddPhotos;
 	
 	private MyUtils utils;
+	private ServicesData serviceData;
+	private MechanicData mechanicData;
+	private VehicleData vehicleData;
+	private OrdersData orderData;
 	
-	private Client client;
-	private Vehicle vehicle;
-	private int numbOfVehicles;
 	private int price;
-    private int currentVehicleCount = 0;
     private boolean isProcessingServiceSelection = false;
 
-	public int getCurrentVehicleCount() {
-		return currentVehicleCount;
-	}
-
-	public void setCurrentVehicleCount(int currentVehicleCount) {
-		this.currentVehicleCount = currentVehicleCount;
-	}
-
 	ArrayList<Services> servicesOnTable;
-	private ArrayList<Services> services;
-	ArrayList<Orders> orders;
 	//columnas de Vehiculo
 	
 	private TableColumn<Vehicle, String> tcLicensePlate;
@@ -87,7 +79,7 @@ public class GUIOrdersController {
 	private TableColumn<Vehicle, String> tcModel;
 	private TableColumn<Vehicle, Integer> tcYear;
 	private TableColumn<Vehicle, String> tcFuelType;
-	private TableColumn<Vehicle, String> tcOwner;
+	private TableColumn<Vehicle, String> tcState;
 	
 	//columnas de servicios
 	
@@ -100,52 +92,49 @@ public class GUIOrdersController {
 	
 	@FXML
 	private void initialize() {	
-		this.services = ServicesData.getList();
+		this.orderData = new OrdersData();
+		this.vehicleData = new VehicleData();
+		this.serviceData = new ServicesData();
+		this.mechanicData = new MechanicData();
 		this.servicesOnTable = new ArrayList<Services>();
-		this.orders = new ArrayList<Orders>();
 		this.utils = new MyUtils();
 		tfOrderState.setText("Por registrar");
 		tfTotalPrice.setText(String.valueOf("$"+price));
 		Random random = new Random();
 		numero = random.nextInt(1000);
 		tfNumOfOrder.setText("ORDER-"+String.valueOf(numero));
-		fillCbMechanics();
 		fillCbServices();
 		initTableViewVehicle();
 		initTableViewServices();
 		setDataTableViewServices();
 		setCbMechanics();
-		
+		setDataTableOfVehicle();
 		cbServiceSelected.setOnAction(e ->{
 	        if (!isProcessingServiceSelection) { 
 	            addServiceToTable();
 	        }
 		});
-		
 	}
 
 	private void setCbMechanics() {
-		ArrayList<Mechanic> mechanics = MechanicData.getList();
-		
+		LinkedList<Mechanic> mechanics = mechanicData.getListMechanics();
 		for(Mechanic mechanicsTemp : mechanics) {
 			cbMechanicSelected.getItems().addAll(mechanicsTemp);
 		}
-
 	}
 
 	private void fillCbServices() {
+		LinkedList<Services> services = serviceData.getListServicesActive();
 		for(Services serviceTemp : services) {
 			cbServiceSelected.getItems().add(serviceTemp.getServiceName());
 		}
-		
-
 	}
 	
 	public void addServiceToTable() {
+		LinkedList<Services> services = serviceData.getListServicesActive();
 		String serviceSelected = cbServiceSelected.getSelectionModel().getSelectedItem();
 		
 	    if (serviceSelected == null || serviceSelected.isEmpty()) {
-	        System.out.println("Seleccion vacia");
 	        return; 
 	    }
 		
@@ -172,46 +161,36 @@ public class GUIOrdersController {
 	
 	public void removeServiceOnTable() {
 		Services serviceSelected = tvServices.getSelectionModel().getSelectedItem();
-		
 	    if (serviceSelected == null) {
 	        return;
 	    }
-	    
 		cbServiceSelected.getItems().add(serviceSelected.getServiceName());
-		
 		for(int i = 0; i < servicesOnTable.size(); i++) {
 			if(servicesOnTable.get(i).equals(serviceSelected)) {
 				servicesOnTable.remove(serviceSelected);
 				break;
 			}
 		}
-		
 		price -= serviceSelected.getBaseCost();
 		tfTotalPrice.setText(String.valueOf(price));
 		setDataTableViewServices();
 	}
 
-	private void fillCbMechanics() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void setDataTableViewServices() {
-		
 		ObservableList<Services> observable = FXCollections.observableArrayList(servicesOnTable);
 		tvServices.setItems(observable);
 	}
 
 	private void initTableViewServices() {
-		tcServiceCode = new TableColumn<Services, String>("Codigo de servicio");
+		tcServiceCode = new TableColumn<Services, String>("CODIGO");
 		tcServiceCode.setCellValueFactory(new PropertyValueFactory<>("serviceCode"));
-		tcServiceName = new TableColumn<Services, String>("Nombre");
+		tcServiceName = new TableColumn<Services, String>("NOMBRE");
 		tcServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-		tcDescription = new TableColumn<Services, String>("Descripcion");
+		tcDescription = new TableColumn<Services, String>("DESCRIPCIÓN");
 		tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-		tcBaseCost = new TableColumn<Services, Integer>("Costo base");
+		tcBaseCost = new TableColumn<Services, Integer>("COSTO");
 		tcBaseCost.setCellValueFactory(new PropertyValueFactory<>("baseCost"));
-		tcEstimatedTime = new TableColumn<Services, Integer>("Tiempo estimado");
+		tcEstimatedTime = new TableColumn<Services, Integer>("TIEMPO ESTIMADO");
 		tcEstimatedTime.setCellValueFactory(new PropertyValueFactory<>("estimatedTime"));	
 		
 		tvServices.getColumns().addAll(tcServiceCode, tcServiceName, tcDescription, tcBaseCost, tcEstimatedTime);
@@ -219,8 +198,6 @@ public class GUIOrdersController {
 	}
 
 	private void initTableViewVehicle() {
-	    System.out.println("Inicializando tabla de vehículos");
-	    
 	    tcLicensePlate = new TableColumn<Vehicle, String>("Placa");
 	    tcLicensePlate.setCellValueFactory(new PropertyValueFactory<>("licensePlate"));
 	    tcLicensePlate.setMinWidth(100);
@@ -241,28 +218,17 @@ public class GUIOrdersController {
 	    tcFuelType.setCellValueFactory(new PropertyValueFactory<>("fuelType"));
 	    tcFuelType.setMinWidth(140);
 	    
-	    tcOwner = new TableColumn<Vehicle, String>("Propietario");
-	    tcOwner.setCellValueFactory(new PropertyValueFactory<>("owner"));
-	    tcOwner.setMinWidth(100);
+	    tcState = new TableColumn<Vehicle, String>("ESTADO");
+	    tcState.setCellValueFactory(new PropertyValueFactory<>("state"));
+	    tcState.setMinWidth(140);
 	    
-	    tvVehicle.getColumns().clear(); // Limpiar columnas existentes primero
-	    tvVehicle.getColumns().addAll(tcLicensePlate, tcBrand, tcModel, tcYear, tcFuelType, tcOwner);
+	    tvVehicle.getColumns().addAll(tcLicensePlate, tcBrand, tcModel, tcYear, tcFuelType, tcState);
 	    tvVehicle.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-	    
-	    System.out.println("Columnas agregadas: " + tvVehicle.getColumns().size());
-	    System.out.println("TableView: " + tvVehicle);
 	}
 	private void setDataTableOfVehicle() {
-	    System.out.println("setDataTableOfVehicle llamado");
-	    if (vehicle != null) {
-	        System.out.println("Vehiculo no es null: " + vehicle.toString());
-	        ObservableList<Vehicle> observable = FXCollections.observableArrayList(vehicle);
-	        System.out.println("Items en observable: " + observable.size());
-	        tvVehicle.setItems(observable);
-	        System.out.println("Items asignados a la tabla");
-	    } else {
-	        System.out.println("ERROR: vehicle es NULL");
-	    }
+		LinkedList<Vehicle> vehicles = vehicleData.getListVehiclesActive();
+		ObservableList<Vehicle> observable = FXCollections.observableArrayList(vehicles);
+		tvVehicle.setItems(observable);
 	}
 
 	// Event Listener on Button[#btnRemoveService].onAction
@@ -273,99 +239,55 @@ public class GUIOrdersController {
 	// Event Listener on Button[#btnRegisterOrder].onAction
 	@FXML
 	public void addOrder(ActionEvent event) {
-		
-		if(validForm()) return;
-
-		
-		Orders order = new Orders();
-		
-		order.setOrderNumber(numero);
-		order.setOrderState("Registrada");
-		order.setCreationDate(dpCreationDate.getValue());
-		order.setObservations(tfOservation.getText());
-		order.setServices(servicesOnTable);
-		order.setTotalPrice(price);
-		
-		ArrayList<Mechanic> mechanics = MechanicData.getList();
-		Mechanic mechanicName = cbMechanicSelected.getSelectionModel().getSelectedItem();
-
-		order.setMechanic(mechanicName);
-		
-		orders.add(order);
-		
-		ClientData.saveClient(client);
-		VehicleData.saveVehicleIntoClient(vehicle, client.getId());
-		OrdersData.saveOrderIntoVehicle(orders);
-		
-		if (currentVehicleCount < numbOfVehicles) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIVehicleRegistration.fxml"));
-                Parent root = loader.load();
-                
-                GUIVehicleRegistrationController vehicleController = loader.getController();
-                vehicleController.setClient(client);
-                vehicleController.setNumbOfVehicles(numbOfVehicles);
-                vehicleController.setCurrentVehicleCount(currentVehicleCount);
-                utils.changeView(btnRegisterOrder, root);
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-                LogicAlert.alertMessage("Error al cargar la vista de vehiculos");
-            }
-        } else {
-            LogicAlert.alertMessage("Todos los vehiculos y ordenes registrados exitosamente");
-            
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
-                Parent root = loader.load();
-                utils.changeView(btnRegisterOrder, root);
-                price = 0;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-		
-		
-	}
-	// Event Listener on Button[#btnCancel].onAction
-	@FXML
-	public void cancelRegister(ActionEvent event) {
+		if(validForm()) {
+			return;
+		}else {
+			Mechanic mechanic = cbMechanicSelected.getSelectionModel().getSelectedItem();
+			Vehicle vehicle = this.tvVehicle.getSelectionModel().getSelectedItem();
+			int orderNumber = numero;
+			String orderState = "Registrada";
+			LocalDate creationDate = dpCreationDate.getValue();
+			String observations = tfOservation.getText();
+			int totalPrice = Integer.parseInt(tfTotalPrice.getText());
+			int idVehicle = vehicle.getId();
+			int idMechanic = mechanic.getId();
+			Orders order = new Orders(0, orderNumber, creationDate, orderState, idMechanic, observations,
+					totalPrice, idVehicle);
+			int idOrder = orderData.addOrders(order);
+			for(Services tempService : servicesOnTable) {
+				serviceData.addServiceToOrder(idOrder, tempService.getId());
+			}
+			LogicAlert.alertMessage("Orden Agregada Correctamente!!");
+			clearForm();
+			setDataTableViewServices();
+			fillCbServices();
+		}
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
 			Parent root = loader.load();	
-			utils.changeView(btnCancel, root);
+			utils.changeView(btnReturn, root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void addPhotos(ActionEvent event) {
+		
+	}
+	
+	// Event Listener on Button[#btnCancel].onAction
+	@FXML
+	public void returnMenu(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/presentation/GUIPrincipal.fxml"));
+			Parent root = loader.load();	
+			utils.changeView(btnReturn, root);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-	    this.vehicle = vehicle;
-	    System.out.println("setVehicle llamado con: " + (vehicle != null ? vehicle.toString() : "NULL"));
-	    setDataTableOfVehicle();
-	}
-
-	public int getNumbOfVehicles() {
-		return numbOfVehicles;
-	}
-
-	public void setNumbOfVehicles(int numbOfVehicles) {
-		this.numbOfVehicles = numbOfVehicles;
-	}
-	
 	private boolean validForm() {
 		if(dpCreationDate.getValue() == null) {//valida que se seleccione una fecha
 			LogicAlert.alertMessage("Debe seleccionar una fecha");
@@ -382,7 +304,20 @@ public class GUIOrdersController {
 		}else if(dpCreationDate.getValue().isAfter(LocalDate.now())) {
 			LogicAlert.alertMessage("La fecha no puede ser mayor al dia actual");
 			return true;
+		}else if(tvVehicle.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe Seleccionar un Vehiculo en la Tabla");
+			return true;
 		}
 		return false;
+	}
+	
+	private void clearForm() {
+		tfNumOfOrder.clear();
+		tfOservation.clear();
+		tfTotalPrice.clear();
+		cbMechanicSelected.setValue(null);
+		cbServiceSelected.setValue(null);
+		servicesOnTable.clear();
+		tvVehicle.getSelectionModel().clearSelection();
 	}
 }
