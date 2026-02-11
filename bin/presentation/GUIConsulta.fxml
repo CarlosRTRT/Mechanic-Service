@@ -10,24 +10,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1393.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIConsultaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="805.0" prefWidth="1086.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.GUIConsultaController">
    <children>
       <!-- Título Principal -->
-      <Label layoutX="460.0" layoutY="25.0" text="AUTOTECH - CONSULTA DE ORDENES">
+      <Label layoutX="274.0" layoutY="25.0" text="AUTOTECH - CONSULTA DE ORDENES">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       
       <!-- Subtítulo -->
-      <Label layoutX="525.0" layoutY="60.0" text="Consulte el estado de su vehiculo en tiempo real">
+      <Label layoutX="377.0" layoutY="69.0" text="Consulte el estado de su vehiculo en tiempo real">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       
       <!-- Panel de Conexión -->
-      <VBox layoutX="75.0" layoutY="100.0" prefHeight="130.0" prefWidth="600.0" spacing="10.0">
+      <VBox layoutX="28.0" layoutY="100.0" prefHeight="130.0" prefWidth="499.0" spacing="10.0">
          <children>
             <Label text="CONEXION AL SERVIDOR">
                <font>
@@ -57,7 +57,7 @@
       </VBox>
       
       <!-- Panel de Consulta -->
-      <VBox layoutX="712.0" layoutY="100.0" prefHeight="130.0" prefWidth="600.0" spacing="10.0">
+      <VBox layoutX="543.0" layoutY="100.0" prefHeight="130.0" prefWidth="525.0" spacing="10.0">
          <children>
             <Label text="CONSULTAR ESTADO DEL VEHICULO">
                <font>
@@ -91,7 +91,7 @@
       </VBox>
       
       <!-- Panel de Información de la Orden -->
-      <VBox fx:id="vboxOrderInfo" layoutX="59.0" layoutY="285.0" prefHeight="561.0" prefWidth="643.0" spacing="8.0" visible="false">
+      <VBox fx:id="vboxOrderInfo" layoutX="36.0" layoutY="235.0" prefHeight="537.0" prefWidth="453.0" spacing="8.0" visible="false">
          <children>
             <Label fx:id="lbOrderNumber" text="Orden #0000">
                <font>
@@ -148,14 +148,14 @@
       </VBox>
       
       <!-- Panel de Imágenes del Vehículo (con ScrollPane para múltiples imágenes) -->
-      <VBox layoutX="723.0" layoutY="285.0" prefHeight="591.0" prefWidth="600.0" spacing="5.0">
+      <VBox layoutX="515.0" layoutY="208.0" prefHeight="597.0" prefWidth="536.0" spacing="5.0">
          <children>
             <Label text="FOTOS DEL VEHÍCULO:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ScrollPane hbarPolicy="ALWAYS" prefHeight="537.0" prefWidth="580.0" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="ALWAYS" prefHeight="537.0" prefWidth="491.0" vbarPolicy="NEVER">
                <content>
                   <HBox fx:id="hboxImages" spacing="10.0" />
                </content>
