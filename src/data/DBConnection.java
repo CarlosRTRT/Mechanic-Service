@@ -5,19 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-	private final  static String DATABASE = "auto_tech";
-	private final  static String USER = "root";
-	private final  static String PASSWORD = "";
-	private final  static String HOST = "localhost";
-	private final  static int PORT = 3306;
-	private final  static String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE;
+	private final static String DATABASE = "auto_tech";
+	private final static String USER = "root";
+	private final static String PASSWORD = "";
+	private final static String HOST = "localhost";
+	private final static int PORT = 3306;
+	private final static String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE;
 	
 	private static Connection connection;
 	
 	public static Connection getConnection() {
 		
-		//singlerton: Si la conexion esta abierta, la retorna sino la inicializa
-		if(connection != null)return connection;
+		//singleton: Si la conexion esta abierta, la retorna sino la inicializa
+		if(connection != null) return connection;
 	
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,10 +27,10 @@ public class DBConnection {
 		
 		try {
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			System.out.println("Se establecio conexion a BD");
+			System.out.println("Se establecio conexion a BD: " + DATABASE);
 		} catch (SQLException e) {
-			System.out.println(DBConnection.getConnection());
-			System.out.println("Erro al establecer conexion: "+e.getMessage());
+			System.err.println("Error al establecer conexion a BD");
+
 		}
 		return connection;
 	}

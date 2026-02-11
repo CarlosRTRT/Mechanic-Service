@@ -6,11 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+
 import data.MechanicData;
 import data.OrdersData;
 import data.ServicesData;
@@ -25,7 +30,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.ComboBox;
-
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -72,8 +76,8 @@ public class GUIOrdersController {
     private boolean isProcessingServiceSelection = false;
 
 	ArrayList<Services> servicesOnTable;
-	//columnas de Vehiculo
 	
+	// Columnas de Vehículo
 	private TableColumn<Vehicle, String> tcLicensePlate;
 	private TableColumn<Vehicle, String> tcBrand;
 	private TableColumn<Vehicle, String> tcModel;
@@ -81,8 +85,7 @@ public class GUIOrdersController {
 	private TableColumn<Vehicle, String> tcFuelType;
 	private TableColumn<Vehicle, String> tcState;
 	
-	//columnas de servicios
-	
+	// Columnas de servicios
 	private TableColumn<Services, String> tcServiceCode;
 	private TableColumn<Services, String> tcServiceName;
 	private TableColumn<Services, String> tcDescription;
@@ -225,6 +228,7 @@ public class GUIOrdersController {
 	    tvVehicle.getColumns().addAll(tcLicensePlate, tcBrand, tcModel, tcYear, tcFuelType, tcState);
 	    tvVehicle.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
+	
 	private void setDataTableOfVehicle() {
 		LinkedList<Vehicle> vehicles = vehicleData.getListVehiclesActive();
 		ObservableList<Vehicle> observable = FXCollections.observableArrayList(vehicles);
@@ -236,12 +240,13 @@ public class GUIOrdersController {
 	public void removeService(ActionEvent event) {
 		removeServiceOnTable();
 	}
+	
 	// Event Listener on Button[#btnRegisterOrder].onAction
 	@FXML
 	public void addOrder(ActionEvent event) {
 		if(validForm()) {
 			return;
-		}else {
+		} else {
 			Mechanic mechanic = cbMechanicSelected.getSelectionModel().getSelectedItem();
 			Vehicle vehicle = this.tvVehicle.getSelectionModel().getSelectedItem();
 			int orderNumber = numero;
@@ -273,7 +278,57 @@ public class GUIOrdersController {
 	
 	@FXML
 	public void addPhotos(ActionEvent event) {
+		Vehicle selectedVehicle = tvVehicle.getSelectionModel().getSelectedItem();
 		
+		if (selectedVehicle == null) {
+			LogicAlert.alertMessage("Debe seleccionar un vehiculo");
+			return;
+		}
+		
+		String licensePlate = selectedVehicle.getLicensePlate();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Agregar Fotos");
+		
+		fileChooser.getExtensionFilters().addAll(
+			new FileChooser.ExtensionFilter("Imagenes", "*.png", "*.jpg", "*.jpeg", "*.gif"),
+			new FileChooser.ExtensionFilter("PNG", "*.png"),
+			new FileChooser.ExtensionFilter("JPEG", "*.jpg", "*.jpeg"),
+			new FileChooser.ExtensionFilter("Todos", "*.*")
+		);
+		
+		List<File> files = fileChooser.showOpenMultipleDialog(btnAddPhotos.getScene().getWindow());
+		
+		if (files != null && !files.isEmpty()) {
+			uploadImages(licensePlate, files);
+		}
+	}
+	
+	private void uploadImages(String licensePlate, List<File> files) {
+		try {
+			ClientAdminAutoTech client = getAdminClient();
+			int uploadedCount = 0;
+			
+			for (File imageFile : files) {
+				if (imageFile.length() > 5 * 1024 * 1024) {
+					LogicAlert.alertMessage("Imagen muy grande: " + imageFile.getName());
+					continue;
+				}
+				client.uploadVehicleImage(licensePlate, imageFile);
+				uploadedCount++;
+			}
+			
+			if (uploadedCount > 0) {
+				LogicAlert.alertMessage("Se subieron " + uploadedCount + " imagen(es)");
+			}
+			
+		} catch (Exception e) {
+			LogicAlert.alertMessage("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private ClientAdminAutoTech getAdminClient() {
+		return Main.getAdminClient();
 	}
 	
 	// Event Listener on Button[#btnCancel].onAction
@@ -289,23 +344,23 @@ public class GUIOrdersController {
 	}
 
 	private boolean validForm() {
-		if(dpCreationDate.getValue() == null) {//valida que se seleccione una fecha
+		if(dpCreationDate.getValue() == null) {
 			LogicAlert.alertMessage("Debe seleccionar una fecha");
 			return true;
-		}else if(cbMechanicSelected.getSelectionModel().isEmpty()) {
-			LogicAlert.alertMessage("Debe seleccionar un mecanico");
+		} else if(cbMechanicSelected.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe seleccionar un mecánico");
 			return true;
-		}else if(tfOservation.getText().isBlank()) {
-			LogicAlert.alertMessage("Debe dejar una observacion");
+		} else if(tfOservation.getText().isBlank()) {
+			LogicAlert.alertMessage("Debe dejar una observación");
 			return true;
-		}else if(tvServices.getItems().isEmpty()) {
+		} else if(tvServices.getItems().isEmpty()) {
 			LogicAlert.alertMessage("Debe elegirse al menos un servicio");
 			return true;
-		}else if(dpCreationDate.getValue().isAfter(LocalDate.now())) {
-			LogicAlert.alertMessage("La fecha no puede ser mayor al dia actual");
+		} else if(dpCreationDate.getValue().isAfter(LocalDate.now())) {
+			LogicAlert.alertMessage("La fecha no puede ser mayor al día actual");
 			return true;
-		}else if(tvVehicle.getSelectionModel().isEmpty()) {
-			LogicAlert.alertMessage("Debe Seleccionar un Vehiculo en la Tabla");
+		} else if(tvVehicle.getSelectionModel().isEmpty()) {
+			LogicAlert.alertMessage("Debe Seleccionar un Vehículo en la Tabla");
 			return true;
 		}
 		return false;

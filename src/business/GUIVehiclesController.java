@@ -8,9 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import data.ClientData;
 import data.VehicleData;
@@ -48,6 +52,8 @@ public class GUIVehiclesController {
 	@FXML
 	private Button btnDeleteVehicle;
 	@FXML
+	private Button btnAddImages;  // NUEVO: Botón para agregar imágenes
+	@FXML
 	private TableView<Vehicle> tvVehicles;
 	
 	private TableColumn<Vehicle, String> tcLicensePlate;
@@ -60,11 +66,15 @@ public class GUIVehiclesController {
 	private VehicleData vehicleData;
 	private ClientData clientData;
 	
+	// NUEVO: Lista para almacenar imágenes seleccionadas
+	private List<File> selectedImages;
+	
 	@FXML
 	private void initialize() {
 		this.utils = new MyUtils();
 		this.vehicleData = new VehicleData();
 		this.clientData = new ClientData();
+		this.selectedImages = new ArrayList<>();
 		
 		loadComboBox();
 		initTableView();
@@ -74,23 +84,137 @@ public class GUIVehiclesController {
 	// Event Listener on Button[#btnAddVehicle].onAction
 	@FXML
 	public void addVehicle(ActionEvent event) {
-		if(validForm()) return;//validacion del formulario
-		String plate = tfLicensePlate.getText();
+		if(validForm()) return; // validación del formulario
+		
+		String plate = tfLicensePlate.getText().trim().toUpperCase();
 		String brand = tfBrand.getText();
 		String model = tfModel.getText();
 		int year = cbYear.getSelectionModel().getSelectedItem();
 		String fuelType = cbFuelType.getSelectionModel().getSelectedItem();
 		Client client = cbClients.getSelectionModel().getSelectedItem();
 		int idClient = client.getId();
+		
 		Vehicle vehicle = new Vehicle(0, plate, brand, model, year, fuelType, idClient);
+		
 	    if(existsVehicle(vehicle.getLicensePlate())) {
 			LogicAlert.alertMessage("La Placa ya existe");
 			return;
-		}else if(vehicleData.addVehicle(vehicle)) {
-			LogicAlert.alertMessage("Vehiculo Agregado Exitosamente!!");
+		} else if(vehicleData.addVehicle(vehicle)) {
+			LogicAlert.alertMessage("Vehículo Agregado Exitosamente!!");
+			
+			// NUEVO: Subir imágenes si hay alguna seleccionada
+			if (!selectedImages.isEmpty()) {
+				uploadVehicleImages(plate);
+			}
+			
 			showVehicles();
 			clearForm();
 		}
+	}
+	
+	/**
+	 * NUEVO: Método para seleccionar imágenes del vehículo
+	 */
+	@FXML
+	public void selectImages(ActionEvent event) {
+		// Verificar si hay un vehículo seleccionado o si estamos creando uno nuevo
+		Vehicle selectedVehicle = vehicleSelectedTV();
+		String licensePlate = null;
+		
+		if (selectedVehicle != null) {
+			// Hay un vehículo seleccionado en la tabla
+			licensePlate = selectedVehicle.getLicensePlate();
+		} else if (!tfLicensePlate.getText().trim().isEmpty()) {
+			// Hay una placa escrita en el campo de texto (vehículo nuevo)
+			licensePlate = tfLicensePlate.getText().trim().toUpperCase();
+		} else {
+			LogicAlert.alertMessage("Debe seleccionar un vehículo de la tabla o ingresar una placa primero");
+			return;
+		}
+		
+		// Crear el FileChooser
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Seleccionar Imágenes del Vehículo " + licensePlate);
+		
+		// Agregar filtros de extensión
+		fileChooser.getExtensionFilters().addAll(
+			new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif"),
+			new FileChooser.ExtensionFilter("PNG", "*.png"),
+			new FileChooser.ExtensionFilter("JPEG", "*.jpg", "*.jpeg"),
+			new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
+		);
+		
+		// Mostrar diálogo para selección múltiple
+		List<File> files = fileChooser.showOpenMultipleDialog(btnAddImages.getScene().getWindow());
+		
+		if (files != null && !files.isEmpty()) {
+			// Si el vehículo ya existe, subir inmediatamente
+			if (selectedVehicle != null) {
+				uploadImmediately(licensePlate, files);
+			} else {
+				// Si es un vehículo nuevo, guardar para subir después
+				selectedImages.addAll(files);
+				LogicAlert.alertMessage("Se seleccionaron " + files.size() + " imagen(es).\nSe subirán al crear el vehículo.");
+			}
+		}
+	}
+	
+	/**
+	 * NUEVO: Subir imágenes inmediatamente (para vehículos existentes)
+	 */
+	private void uploadImmediately(String licensePlate, List<File> files) {
+		try {
+			ClientAdminAutoTech client = getAdminClient();
+			
+			for (File imageFile : files) {
+				// Validar tamaño del archivo (máximo 5MB)
+				if (imageFile.length() > 5 * 1024 * 1024) {
+					LogicAlert.alertMessage("La imagen " + imageFile.getName() + " es muy grande (máx 5MB)");
+					continue;
+				}
+				
+				client.uploadVehicleImage(licensePlate, imageFile);
+			}
+			
+			LogicAlert.alertMessage("✓ Se subieron " + files.size() + " imagen(es) correctamente");
+			
+		} catch (Exception e) {
+			LogicAlert.alertMessage("Error al subir imágenes: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * NUEVO: Subir imágenes de vehículo recién creado
+	 */
+	private void uploadVehicleImages(String licensePlate) {
+		try {
+			ClientAdminAutoTech client = getAdminClient();
+			
+			for (File imageFile : selectedImages) {
+				// Validar tamaño del archivo (máximo 5MB)
+				if (imageFile.length() > 5 * 1024 * 1024) {
+					LogicAlert.alertMessage("La imagen " + imageFile.getName() + " es muy grande (máx 5MB)");
+					continue;
+				}
+				
+				client.uploadVehicleImage(licensePlate, imageFile);
+			}
+			
+			LogicAlert.alertMessage("✓ Vehículo creado y " + selectedImages.size() + " imagen(es) subidas");
+			selectedImages.clear();
+			
+		} catch (Exception e) {
+			LogicAlert.alertMessage("Error al subir imágenes: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * NUEVO: Obtener instancia del cliente administrativo
+	 */
+	private ClientAdminAutoTech getAdminClient() {
+		return Main.getAdminClient();
 	}
 	
 	public void loadComboBox() {
@@ -116,12 +240,13 @@ public class GUIVehiclesController {
 			e.printStackTrace();
 		}
 	}
+	
 	// Event Listener on Button[#btnEditVehicle].onAction
 	@FXML
 	public void editVehicle(ActionEvent event) {
 		Vehicle vehicle = vehicleSelectedTV();
 		if(vehicle == null) {
-			LogicAlert.alertMessage("Debe Seleccionar un Vehiculo en la Tabla");
+			LogicAlert.alertMessage("Debe Seleccionar un Vehículo en la Tabla");
 			return;
 		}
 		if(validForm())return;
@@ -130,7 +255,7 @@ public class GUIVehiclesController {
 		int newYear = cbYear.getSelectionModel().getSelectedItem();
 		String newFuelType = cbFuelType.getSelectionModel().getSelectedItem();
 		if(vehicleData.updateVehicle(vehicle, newBrand, newModel, newYear, newFuelType)) {
-			LogicAlert.alertMessage("Vehiculo Actualizado Correctamente");
+			LogicAlert.alertMessage("Vehículo Actualizado Correctamente");
 			btnReturn.setText("Volver al Menú Principal");
 			tfLicensePlate.setEditable(true);
 			cbClients.setMouseTransparent(false);
@@ -139,15 +264,16 @@ public class GUIVehiclesController {
 			showVehicles();
 		}
 	}
+	
 	// Event Listener on Button[#btnDeleteVehicle].onAction
 	@FXML
 	public void deleteVehicle(ActionEvent event) {
 		Vehicle vehicle = vehicleSelectedTV();
 		if(vehicle == null) {
-			LogicAlert.alertMessage("Debe Seleccionar un Vehiculo en la Tabla");
+			LogicAlert.alertMessage("Debe Seleccionar un Vehículo en la Tabla");
 			return;
-		}else if(vehicleData.deleteVehicle(vehicle)) {
-			LogicAlert.alertMessage("Vehiculo Eliminado Correctamente");
+		} else if(vehicleData.deleteVehicle(vehicle)) {
+			LogicAlert.alertMessage("Vehículo Eliminado Correctamente");
 			btnReturn.setText("Volver al Menú Principal");
 			tfLicensePlate.setEditable(true);
 			cbClients.setMouseTransparent(false);
@@ -156,6 +282,7 @@ public class GUIVehiclesController {
 			showVehicles();
 		}
 	}
+	
 	// Event Listener on TableView[#tvClients].onMouseClicked
 	@FXML
 	public void vehicleSelected(MouseEvent event) {
@@ -215,7 +342,7 @@ public class GUIVehiclesController {
 					this.lbClient.setText("CLIENTE ACTIVO");
 				}
 				if(tempClient.getState().equalsIgnoreCase("Inactivo")) {
-					this.lbClient.setText("⚠CLIENTE INACTIVO⚠");
+					this.lbClient.setText("⚠ CLIENTE INACTIVO⚠ ");
 				}
 				return tempClient;
 			}
@@ -225,16 +352,16 @@ public class GUIVehiclesController {
 	
 	private boolean validForm() {
 		if(tfLicensePlate.getText().isBlank() ||
-				tfBrand.getText().isBlank() || tfModel.getText().isBlank()) {//valida que no queden datos vacios
-			LogicAlert.alertMessage("No Dejar Datos Vacios");
+				tfBrand.getText().isBlank() || tfModel.getText().isBlank()) {
+			LogicAlert.alertMessage("No Dejar Datos Vacíos");
 			return true;
-		}else if(cbFuelType.getSelectionModel().isEmpty()) {
+		} else if(cbFuelType.getSelectionModel().isEmpty()) {
 			LogicAlert.alertMessage("Debe Seleccionar un Tipo de Combustible");
 			return true;
-		}else if(cbYear.getSelectionModel().isEmpty()) {
+		} else if(cbYear.getSelectionModel().isEmpty()) {
 			LogicAlert.alertMessage("Debe Seleccionar un Año");
 			return true;
-		}else if(cbClients.getValue() == null) {
+		} else if(cbClients.getValue() == null) {
 			LogicAlert.alertMessage("Debe Seleccionar un Cliente");
 			return true;
 		}
@@ -261,5 +388,6 @@ public class GUIVehiclesController {
 		cbYear.setPromptText("Seleccione el año:");
 		cbClients.setValue(null);
 		cbClients.setPromptText("Seleccionar Cliente:");
+		selectedImages.clear(); // NUEVO: Limpiar lista de imágenes
 	}
 }
