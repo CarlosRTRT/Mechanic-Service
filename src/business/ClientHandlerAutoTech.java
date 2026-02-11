@@ -31,10 +31,10 @@ public class ClientHandlerAutoTech extends Thread {
     private MechanicData mechanicData;
     private ServicesData servicesData;
     private OrdersData ordersData;
-    private static final String DIR_NAME = "autotech/vehicle_images/";
-    private static final String UPLOAD_PATH = "C:/xampp/htdocs/" + DIR_NAME;
-    private static final String SERVER_IP = "http://localhost";
-    private static final String SERVER_PATH = SERVER_IP + "/" + DIR_NAME;
+    
+    // Ruta física donde se guardan las imágenes
+    private static final String UPLOAD_PATH = "C:/xampp/htdocs/autotech/vehicle_images/";
+    
     private boolean isConsultaClient = false;
     private String watchingPlate = null;
     
@@ -246,8 +246,8 @@ public class ClientHandlerAutoTech extends Thread {
         }
     }
     
-    private void deleteClient(String idClient) {
-        if (clientData.deleteClient(Integer.parseInt(idClient))) {
+    private void deleteClient(String id) {
+        if (clientData.deleteClient(Integer.parseInt(id))) {
             sendMessage("CLIENT_DELETED@Cliente eliminado");
             server.broadcastMessage("REFRESH_CLIENTS@");
         } else {
@@ -256,7 +256,7 @@ public class ClientHandlerAutoTech extends Thread {
     }
     
     private void sendVehiclesList() {
-        LinkedList<Vehicle> vehicles = vehicleData.getListVehiclesActive();
+        LinkedList<Vehicle> vehicles = vehicleData.getListVehicles();
         String response = "VEHICLES_LIST@";
         
         for (Vehicle vehicle : vehicles) {
@@ -305,7 +305,6 @@ public class ClientHandlerAutoTech extends Thread {
         )) {
             sendMessage("VEHICLE_UPDATED@Vehiculo actualizado");
             server.broadcastMessage("REFRESH_VEHICLES@");
-            server.notifyClientsByPlate(parts[1]);
         } else {
             sendMessage("ERROR@No se pudo actualizar el vehiculo");
         }
@@ -314,14 +313,6 @@ public class ClientHandlerAutoTech extends Thread {
     private void deleteVehicle(String plate) {
         Vehicle vehicle = new Vehicle();
         vehicle.setLicensePlate(plate);
-        
-        LinkedList<Vehicle> vehicles = vehicleData.getListVehicles();
-        for (Vehicle v : vehicles) {
-            if (v.getLicensePlate().equals(plate)) {
-                vehicle.setId(v.getId());
-                break;
-            }
-        }
         
         if (vehicleData.deleteVehicle(vehicle)) {
             sendMessage("VEHICLE_DELETED@Vehiculo eliminado");
@@ -391,7 +382,7 @@ public class ClientHandlerAutoTech extends Thread {
     }
     
     private void sendServicesList() {
-        LinkedList<Services> services = servicesData.getListServicesActive();
+        LinkedList<Services> services = servicesData.getListServices();
         String response = "SERVICES_LIST@";
         
         for (Services service : services) {
@@ -588,8 +579,11 @@ public class ClientHandlerAutoTech extends Thread {
             servicesStr += s.getServiceName() + ",";
         }
         
-        Mechanic mechanic = mechanicData.getMechanic(String.valueOf(latestOrder.getIdMechanic()));
+        // CORRECCIÓN: Buscar mecánico por ID numérico de la BD
+        Mechanic mechanic = getMechanicById(latestOrder.getIdMechanic());
         String mechanicName = mechanic != null ? mechanic.getFullName() : "No asignado";
+        
+        System.out.println("Mecánico encontrado: " + mechanicName + " (ID: " + latestOrder.getIdMechanic() + ")");
         
         String response = "ORDER_DATA@" + latestOrder.getOrderNumber() + "@" + 
                          latestOrder.getOrderState() + "@" + latestOrder.getObservations() + "@" + 
@@ -620,6 +614,7 @@ public class ClientHandlerAutoTech extends Thread {
             }
             
             fos.close();
+            System.out.println("Imagen guardada: " + file.getAbsolutePath());
             sendMessage("IMAGE_UPLOADED@Imagen guardada");
             server.notifyClientsByPlate(licensePlate);
             
@@ -634,14 +629,24 @@ public class ClientHandlerAutoTech extends Thread {
         File dir = new File(vehicleDir);
         String response = "VEHICLE_IMAGES@";
         
+        System.out.println("Buscando imagenes en: " + vehicleDir);
+        
         if (dir.exists() && dir.isDirectory()) {
             File[] files = dir.listFiles();
-            if (files != null) {
+            if (files != null && files.length > 0) {
                 for (File file : files) {
-                    String imagePath = SERVER_PATH + licensePlate + "/" + file.getName();
-                    response += file.getName() + "&" + imagePath + "|";
+                    if (file.isFile()) {
+                        // CAMBIO CRÍTICO: Enviar ruta FÍSICA del archivo
+                        String absolutePath = file.getAbsolutePath();
+                        response += file.getName() + "&" + absolutePath + "|";
+                        System.out.println("Enviando imagen: " + absolutePath);
+                    }
                 }
+            } else {
+                System.out.println("No se encontraron archivos en el directorio");
             }
+        } else {
+            System.out.println("El directorio no existe: " + vehicleDir);
         }
         
         sendMessage(response);
@@ -661,6 +666,16 @@ public class ClientHandlerAutoTech extends Thread {
         for (Vehicle v : vehicles) {
             if (v.getId() == idVehicle) {
                 return v;
+            }
+        }
+        return null;
+    }
+    
+    private Mechanic getMechanicById(int idMechanic) {
+        LinkedList<Mechanic> mechanics = mechanicData.getListMechanics();
+        for (Mechanic m : mechanics) {
+            if (m.getId() == idMechanic) {
+                return m;
             }
         }
         return null;
