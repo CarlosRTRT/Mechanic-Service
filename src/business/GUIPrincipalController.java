@@ -32,21 +32,11 @@ public class GUIPrincipalController {
 	@FXML
 	private Button btnReport;
 	private MyUtils utils;
-	private MechanicData mechanicData;
-	private ClientData clientData;
-	private VehicleData vehicleData;
-	private OrdersData orderData;
-	private ServicesData serviceData;
 	
 	
 	@FXML
 	private void initialize() {
 		this.utils = new MyUtils();
-		this.mechanicData = new MechanicData();
-		this.serviceData = new ServicesData();
-		this.orderData = new OrdersData();
-		this.clientData = new ClientData();
-		this.vehicleData = new VehicleData();
 	}
 
 	// Event Listener on Button[#btnClient].onAction

@@ -1,1 +1,176 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.root {
+   -fx-background-color: linear-gradient(
+        to bottom,
+        #141e30 0%,
+        #243b55 50%,
+        #141e30 100%
+    );
+}
+
+.button {
+    -fx-background-color: #e6e6e6;
+    -fx-text-fill: #1f2a44;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 1;
+}
+
+.button:hover {
+    -fx-background-color: #00cfd1;
+    -fx-text-fill: white;
+}
+
+.button:pressed {
+    -fx-background-color: #00a6a8;
+}
+
+.label {
+    -fx-text-fill: #eaf6ff;
+}
+
+.table-view {
+    -fx-background-color: #2f3f55;
+    -fx-control-inner-background: #2f3f55;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #3c5678;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: #2f3f55;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #4a6fa5;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #3a4f6b;
+}
+
+.text-field {
+    -fx-background-color: #3a4f6b;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #cfd8dc;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-padding: 6 10 6 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 2;
+}
+
+.date-picker-popup {
+    -fx-background-color: #2c3e50;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #1f2f45;
+}
+
+.date-picker-popup > .calendar-grid {
+    -fx-background-color: #2c3e50;
+}
+
+.date-picker-popup .day-cell {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .today {
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #4a6fa5;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .day-cell:disabled {
+    -fx-opacity: 0.4;
+}
+
+.date-picker {
+    -fx-background-color: #3f5878;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 1.5;
+}
+
+.date-picker .text-field {
+    -fx-background-color: #3f5878;
+    -fx-text-fill: white;
+    -fx-background-radius: 8 0 0 8;
+    -fx-border-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #3f5878;
+    -fx-background-radius: 0 8 8 0;
+}
+
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.date-picker:hover {
+    -fx-border-color: #00c6ff;
+}
+
+
+.combo-box {
+    -fx-background-color: #3a4f6b;
+    -fx-background-radius: 8;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #3a4f6b;
+    -fx-text-fill: white;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #3a4f6b;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #2c3e50;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #4a6fa5;
+}
+
